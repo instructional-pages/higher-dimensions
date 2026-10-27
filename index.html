@@ -4,13 +4,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="data:," />
     <title>Higher Dimensions Explorer</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <main>
-      <h1>Higher Dimensions Explorer</h1>
-      <p id="status">Lessons are on the way.</p>
+      <canvas id="view" aria-label="The tesseract's shadow in 3D, drawn on the screen"></canvas>
+      <aside>
+        <h1>The tesseract</h1>
+        <p id="status">Each slider turns it in one plane, in radians. The last three turn it into w.</p>
+        <div id="sliders"></div>
+        <div id="matrix"></div>
+        <p class="note">
+          M = R<sub>zw</sub> R<sub>yw</sub> R<sub>xw</sub> R<sub>yz</sub> R<sub>xz</sub> R<sub>xy</sub>:
+          xy turns first, zw last.
+        </p>
+      </aside>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>

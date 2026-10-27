@@ -5,10 +5,11 @@ A public, browser-based course for properly learning how dimensions work: 4D fir
 ends in an interactive sandbox. Visuals give the intuition, and the coordinates and
 matrices are shown next to them so the learner sees *why* things move the way they do.
 
-Status: scaffold only (TypeScript + Vite); see [docs/BRIEF.md](docs/BRIEF.md) and the
-lesson outline in [docs/LESSONS.md](docs/LESSONS.md).
+Status: a tesseract sandbox (projection view, six rotation sliders, live 4×4 matrix);
+the lessons come next. See [docs/BRIEF.md](docs/BRIEF.md), the lesson outline in
+[docs/LESSONS.md](docs/LESSONS.md), and [CHANGELOG.md](CHANGELOG.md).
 
-Develop with `npm install` then `npm run dev`. Checks: `./.local-ci` (typecheck, build,
-bundle-size budget).
+Develop with `npm install` then `npm run dev`. Checks: `./.local-ci` (typecheck, unit
+tests, build, bundle-size budget); `npm test` runs the unit tests alone.
 
 License: [MIT](LICENSE).
