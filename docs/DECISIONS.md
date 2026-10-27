@@ -170,3 +170,19 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Question:** How big may the shipped JS and CSS be?
 - **Choice:** 50 KiB gzipped in total, enforced by `.local-ci` (`npm run size`).
 - **Why:** "Performance and minimalism get huge emphasis": a plain-WebGL2 renderer, lesson text and HTML/CSS matrices should fit well under this, so crossing it means something heavy slipped in.
+
+## 2026-10-27: Tesseract renderer details (decided by Claude, pending review)
+
+- **Question:** Details the renderer needed that the brief and outline left open.
+- **Choice:** Sliders combine in the order xy, xz, yz, xw, yw, zw (M = R_zw·…·R_xy, xy
+  applied first); each slider runs 0 to 2π in steps of 0.01. Tesseract corners sit at
+  ±1, the viewer is at w = 3 (far cube scaled 3/4, near cube 3/2). The 3D shadow is seen
+  through a fixed camera slightly above and to the side. The 4D math runs on the CPU
+  and frames are drawn only when a slider moves, not in a loop. Unit tests use Node's
+  built-in runner (`node --test`), no test framework.
+- **Why:** The order puts the w-fixed planes first, as the lessons introduce them, and
+  matches lesson 6's worked example (xy then xz). 0 to 2π covers a full turn, the lesson
+  8 check. A fixed camera keeps sliders the only control while still reading as 3D.
+  16 corners cost about 22 µs per frame on the CPU, so no shader math is needed, and
+  drawing on demand keeps an idle page at zero cost. Node's runner adds nothing to
+  install.
