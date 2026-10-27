@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# The checks every PR must pass, run on this machine by `local-ci` (claude-toolkit)
+# in place of GitHub Actions. Run it directly to check without posting a status.
+set -euo pipefail
+cd "$(dirname "$0")"
+npm ci --no-audit --no-fund
+npm run typecheck
+npm run build
+npm run size
