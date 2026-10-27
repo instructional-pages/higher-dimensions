@@ -1,6 +1,6 @@
 # Lesson outline
 
-Draft for approval. Twelve lessons on a dimension ladder: each takes one idea and climbs
+Approved 2026-10-27. Twelve lessons on a dimension ladder: each takes one idea and climbs
 0D → 1D → 2D → 3D → 4D with it. Every lesson is a few short text steps beside the live
 view (Next button), at least one predict-then-reveal check, and a sandbox at the end.
 
@@ -19,7 +19,7 @@ describe.
 | 5 | Turning in a plane | Projection (2D) | Matrix | **xy** |
 | 6 | Planes, not axes | Projection (3D) | Matrix | xy, **xz, yz** |
 | 7 | Shadows | Projection | Matrix | xy, xz, yz |
-| 8 | Turning into w | Projection | Matrix, Slice | …, **xw**, then **yw, zw** (all 6) |
+| 8 | Turning into w | Projection | Matrix | …, **xw**, then **yw, zw** (all 6) |
 | 9 | Slicing | Slice | Projection | xy, xz, yz |
 | 10 | Slicing a turning shape | Slice | Projection, Matrix | all 6 |
 | 11 | Unfolding | Net | Projection | xy, xz, yz |
@@ -137,10 +137,16 @@ rotation leaves z and w alone), which is why "around an axis" stops working.
 
 **Steps:** each 3D rotation matrix is the 2D matrix from lesson 5 placed in two rows and
 two columns of the 3×3 identity. Turning several sliders multiplies the matrices, in the
-fixed order the matrix panel shows.
+fixed order the matrix panel shows. Then why the order matters: rotations in different
+planes don't commute. Follow the corner (1, 0, 0) through xy by π/2 then xz by π/2: it
+ends at (0, 1, 0). Swap the order, xz first, then xy: it ends at (0, 0, 1). A swap-order
+toggle shows both results side by side, and the two matrix products differ. The sliders
+always use the panel's fixed order, so the learner can read the result off the matrix.
 
 **Check:** "how many rotation planes does 4D have?" (6), then "which coordinates does the
-xz rotation leave unchanged?" (y).
+xz rotation leave unchanged?" (y). Then: "xy by π/2 then xz by π/2, or the other way
+round: does the cube end up the same?" (no: the corner (1, 0, 0) lands on (0, 1, 0) one
+way and (0, 0, 1) the other.)
 
 **Sandbox:** the cube with **xy, xz, yz** and the 3×3 matrix.
 
@@ -180,7 +186,7 @@ viewer sees what we see in 4D.
 
 **Steps:** introduce **xw** alone first, then **yw** and **zw**. The 4×4 matrix is again
 the 2×2 block from lesson 5, now with w in it. Colors move cool ↔ warm as corners trade
-w for x. The small slice view is shown here but not yet explained.
+w for x.
 
 **Check:** "turn xw by π/2. Which cube ends up on the outside?" (the one that faced +x.)
 Then: "after a full turn of 2π, where is everything?" (back where it started.)
@@ -201,7 +207,8 @@ dimension down and look at the cut.
   the same, and disappears. Corner-first, a tetrahedron that grows into an octahedron at
   the middle (the 4D analog of the hexagon), then shrinks back.
 
-**Steps:** a slider moves the cut along the last axis. Slices are filled. A Flatlander
+**Steps:** a slider moves the cut along the last axis. Slices are filled. The slice view
+appears here for the first time. A Flatlander
 can only see the slices of a passing cube; we are in the same position with the
 tesseract.
 
@@ -277,14 +284,13 @@ picture: derive the 5D cube's corners, edges, squares, cubes and 4D cells (32, 8
 | 60 fps with all linked views | Not a lesson matter: renderer work | — |
 | A newcomer finishes the 4D lessons without help | Every lesson: each needed idea (vectors, matrices, radians, projection formula) is taught where it is first used | Usability check once lessons exist |
 
-## Open points for review
+## Settled in review
 
 - **Projection along w is perspective** (cube in a cube), not straight-on, which would
   collapse the two cubes on top of each other.
-- **Rotation order:** sliders combine in one fixed order, shown in the matrix panel.
-  Rotations in different planes don't commute; the outline mentions this but doesn't
-  teach it.
+- **Rotation order:** sliders combine in one fixed order, shown in the matrix panel, and
+  lesson 6 teaches that rotations in different planes don't commute.
 - **5D and 6D appear only as counts** (lessons 4 and 12), never drawn, so the MVP renderer
   stays 4D-only.
-- **Lesson 8 has the small slice view visible before slices are taught** in lesson 9, so
-  it is already familiar. The alternative is to hide it until lesson 9.
+- **The slice view first appears in lesson 9**, where slices are taught; lesson 8 doesn't
+  show it.
