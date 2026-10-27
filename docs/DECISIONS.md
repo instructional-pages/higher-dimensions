@@ -164,3 +164,9 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Question:** Details the brief left open while drafting `docs/LESSONS.md`.
 - **Choice:** Perspective projection along w (cube in a cube); sliders combine in one fixed order shown in the matrix panel, and lesson 6 teaches that rotations in different planes don't commute; 5D and 6D appear only as counts, never drawn; the 4D rotation planes arrive in lesson 8, xw first, then yw and zw; the slice view first appears in lesson 9.
 - **Why:** Straight-on projection along w hides the inner cube; a fixed order keeps the matrix readable, and teaching why order matters explains it; drawing 5D needs the generic engine (Later); pacing the sliders addresses the brief's six-planes risk; showing a view before it is taught would confuse a beginner. Confirmed by the user in review of PR #1, which changed the rotation-order and slice-view points.
+
+## 2026-10-27: Bundle budget (decided by Claude, pending review)
+
+- **Question:** How big may the shipped JS and CSS be?
+- **Choice:** 50 KiB gzipped in total, enforced by `.local-ci` (`npm run size`).
+- **Why:** "Performance and minimalism get huge emphasis": a plain-WebGL2 renderer, lesson text and HTML/CSS matrices should fit well under this, so crossing it means something heavy slipped in.
