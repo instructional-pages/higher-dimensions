@@ -1,7 +1,7 @@
 > Copied from the project backlog on 2026-10-27; now maintained here.
 
 ---
-title: Higher Dimensions Explorer
+title: Higher Dimensions
 status: ready
 created: 2026-10-27
 updated: 2026-10-27
@@ -13,7 +13,7 @@ effort:
 priority:
 ---
 
-# Higher Dimensions Explorer
+# Higher Dimensions
 
 ## Summary *
 
@@ -102,7 +102,7 @@ learner rotate, slice and unfold a shape while the numbers update alongside.
 
 ## Decided
 
-- Name and repo: `higher-dimensions-explorer`, under the `instructional-pages` organization (moved from `ntfifwyb` on 2026-10-28).
+- Name and repo: `higher-dimensions`, under the `instructional-pages` organization (moved from `ntfifwyb/higher-dimensions-explorer` on 2026-10-28).
 - Intuition and math together: visuals first, with the numbers alongside.
 - Guided lessons, each ending in a sandbox.
 - Web app in the browser.

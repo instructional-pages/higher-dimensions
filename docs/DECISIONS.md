@@ -366,3 +366,10 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   browser courses. Its shared rules (`~/projects/instructional-pages/CLAUDE.md`) apply here,
   and this repo's `CLAUDE.md` overrides them.
 - **Why:** The user created the organization so courses share the same principles, look and tooling.
+
+## 2026-10-28: Name
+
+- **Question:** Keep "Explorer" in the name?
+- **Choice:** No. The repo, folder and package are `higher-dimensions`, and the course is titled
+  "Higher Dimensions".
+- **Why:** The user asked for the shorter name.

@@ -24,7 +24,7 @@ const TITLES = [
 ];
 // The lessons built so far, in order.
 const LESSONS: Lesson[] = [lesson1, lesson2, lesson3];
-const COURSE = "Higher Dimensions Explorer";
+const COURSE = "Higher Dimensions";
 
 const root = document.querySelector("main")!;
 let stop = () => {};
