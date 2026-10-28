@@ -1,4 +1,4 @@
-# Higher Dimensions Explorer
+# Higher Dimensions
 
 A public, browser-based course for properly learning how dimensions work: 4D first, then
 5D, 6D and beyond. Guided lessons build up by analogy (2D → 3D → 4D → …), and each lesson
