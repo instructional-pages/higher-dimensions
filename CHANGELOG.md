@@ -4,6 +4,17 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] - 2026-10-28
+
+### Added
+
+- Linked views: one view is the main one, large on the left, and the other two sit small
+  beside it. Click a small view (or Tab to it and press Enter) to make it the main one.
+  Every slider still moves all three.
+- Corner coordinates under the matrix: four corners (A–D), each with its starting
+  (x, y, z, w) and where the matrix sends it, updating with the sliders. The same corners
+  are marked with labelled dots in the shadow, so numbers and picture line up.
+
 ## [0.3.0] - 2026-10-28
 
 ### Added

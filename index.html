@@ -11,9 +11,10 @@
   <body>
     <main>
       <div id="views">
-        <figure>
+        <figure class="main">
           <canvas id="projection" aria-label="The tesseract's shadow in 3D, with the slice marked inside it"></canvas>
           <figcaption>Shadow</figcaption>
+          <div id="marks"></div>
         </figure>
         <figure>
           <canvas id="slice" aria-label="The 3D slice of the tesseract where w = h"></canvas>
@@ -35,10 +36,15 @@
           tesseract. It turns only in xy, xz and yz.
         </p>
         <div id="fold" class="sliders"></div>
-        <div id="matrix"></div>
+        <div id="matrix" class="grid"></div>
         <p class="note">
           M = R<sub>zw</sub> R<sub>yw</sub> R<sub>xw</sub> R<sub>yz</sub> R<sub>xz</sub> R<sub>xy</sub>:
           xy turns first, zw last.
+        </p>
+        <div id="corners" class="grid"></div>
+        <p class="note">
+          Four corners, marked in the shadow: where each starts, and where M sends it. A and B
+          differ in x, A and C in w, and D is opposite A.
         </p>
       </aside>
     </main>

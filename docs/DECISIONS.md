@@ -226,3 +226,28 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   viewer, so mid-fold they shrink instead of swelling (the furthest corner reaches
   w ≈ −2.52); folding toward the viewer would reach w ≈ 2.52, enlarged 6×. One fixed
   framing keeps sizes comparable across the fold: the cross visibly closes up into a box.
+
+## 2026-10-28: Linked views and corner coordinates
+
+- **Question:** How should the three views be laid out and the main one picked, and which
+  coordinates go next to the matrix?
+- **Choice:** The main view fills the left; the other two are stacked in a narrow column
+  beside it. Clicking a small view (or Enter on it) swaps it in. Under the matrix, four
+  corners A–D show their start and where M sends them, and are marked with labelled dots
+  in the shadow.
+- **Why:** The main view keeps most of the room while the others stay in sight for
+  comparison; clicking needs no extra controls. Start → turned makes M·v visible without
+  a wall of 16 rows, and the marks tie the numbers to the picture. User's choice.
+
+## 2026-10-28: Linked view details (decided by Claude, pending review)
+
+- **Question:** Details the linked views needed that the choices above left open.
+- **Choice:** The shadow starts as the main view, the small column is 24% of the views'
+  width (at least 12rem), and the main view's choice isn't remembered (nothing in
+  localStorage). The corners are A (1, 1, 1, 1), B (−1, 1, 1, 1), C (1, 1, 1, −1) and
+  D = −A, laid out in the matrix's columns. Marks are HTML over the canvas, placed with the
+  same camera as the drawing, and stay on the shadow when it is small.
+- **Why:** A and B differ in x, A and C in w, and D is opposite, so one table shows an
+  ordinary edge, an edge into w and the centre symmetry (D's turned coordinates are always
+  minus A's). Sharing columns with the matrix lets the learner read M·v off row by row.
+  HTML marks need no text rendering in WebGL.
