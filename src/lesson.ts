@@ -1,7 +1,8 @@
 // The lesson shell: a lesson's views on the left (one main, the others small and
 // swappable), and beside them its short text steps, advanced with Back and Next. A step
-// may hold a predict-then-reveal check, which must be revealed before Next. The lesson
-// itself draws the views and puts each step's sliders in place.
+// may hold a predict-then-reveal check, which must be revealed before Next, or wait for
+// the learner to finish something in the views. The lesson itself draws the views and
+// puts each step's sliders in place.
 
 import { canReveal, isRight } from "./check.ts";
 import { figure, linkViews, type ViewSpec } from "./ui.ts";
@@ -17,6 +18,8 @@ export interface Step {
   // HTML.
   text: string;
   check?: Check;
+  // Next waits until the lesson calls `done` for this step.
+  hold?: boolean;
 }
 
 export interface Lesson {
@@ -25,8 +28,9 @@ export interface Lesson {
   views: ViewSpec[];
   steps: Step[];
   // Starts drawing into the lesson's figures. `show` sets up step i, putting its
-  // sliders in `controls`; `stop` ends drawing. Null when the browser has no WebGL2.
-  start(figures: HTMLElement[], controls: HTMLElement): { show(step: number): void; stop(): void } | null;
+  // sliders in `controls`, and calls `done` when a held step is finished; `stop` ends
+  // drawing. Null when the browser has no WebGL2.
+  start(figures: HTMLElement[], controls: HTMLElement): { show(step: number, done: () => void): void; stop(): void } | null;
 }
 
 // Builds lesson `n` into `root`; the returned function stops it. `next` is the hash the
@@ -58,8 +62,9 @@ export function mountLesson(root: HTMLElement, n: number, lesson: Lesson, next: 
   }
 
   let at = 0;
-  // Checks already revealed don't hold Next back again on a second visit.
-  const revealed = new Set<number>();
+  // Steps already finished (checks revealed, held steps done) don't hold Next back again
+  // on a second visit.
+  const finished = new Set<number>();
   const show = (i: number) => {
     at = i;
     const step = lesson.steps[i]!;
@@ -68,10 +73,11 @@ export function mountLesson(root: HTMLElement, n: number, lesson: Lesson, next: 
     $(".text").innerHTML = step.text;
     back!.disabled = i === 0;
     forward!.textContent = last ? (next === "" ? "Contents" : "Next lesson") : "Next";
-    forward!.disabled = !!step.check && !revealed.has(i);
+    forward!.disabled = (!!step.check || !!step.hold) && !finished.has(i);
+    const finish = () => (finished.add(i), (forward!.disabled = false));
     $(".sliders").replaceChildren();
-    showCheck($(".check"), step.check, () => (revealed.add(i), (forward!.disabled = false)));
-    scene.show(i);
+    showCheck($(".check"), step.check, finish);
+    scene.show(i, finish);
   };
   back!.addEventListener("click", () => show(at - 1));
   forward!.addEventListener("click", () => {

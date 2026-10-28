@@ -89,7 +89,7 @@ and add each group to the running count.
 **Check:** predict every 4D cell before it fills in (16 corners, 32 edges). Then the
 shortcut: V(n) = 2ⁿ.
 
-**Sandbox:** click a highlight group (old / new / connecting) on the tesseract to count it.
+**Sandbox:** pick a rung (0D–4D) and light up each group (old / new / connecting) to count it.
 
 ## 4. Squares, cubes and beyond
 

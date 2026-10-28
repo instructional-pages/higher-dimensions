@@ -323,3 +323,38 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   Reveal keeps the check a real prediction. Naming the slider by its axis says exactly
   what number it changes, and fits the slider row. Row-by-row pairing shows each corner
   next to its copy, differing only in the last number.
+
+## 2026-10-28: Lesson 3, pacing, shortcut and highlight
+
+- **Question:** How is each rung counted, how is V(n) = 2ⁿ taught, and how does a lit
+  group look when hue belongs to w?
+- **Choice:** One step per rung, with three buttons (old copy, new copy, connecting
+  edges); each lights its group and adds it to the rung's row, and Next waits until all
+  three are counted. After the table, a second check asks for a 10D cube's corners (1024)
+  before stating V(n) = 2ⁿ. The lit group is drawn bright (links still dashed) and the
+  rest fades to a ghost.
+- **Why:** Eight steps instead of sixteen, and the same buttons serve the sandbox. The 10D
+  check makes the learner use the shortcut rather than read it. Fading the rest keeps
+  color meaning only w and needs no line widths WebGL2 doesn't have. User's choice.
+
+## 2026-10-28: Lesson 3 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 3 needed that the outline and the choices above left open.
+- **Choice:**
+  - Eight steps: 0D (the point, its row already filled), 1D, 2D, 3D, the 4D check (two
+    prompts, "4D corners" and "4D edges", standing on the finished cube with the 4D row
+    empty), 4D, the 10D check, and the sandbox.
+  - The count is the small view: a row per rung 0D–4D. Rows below the current rung show
+    their full sums, the current row the sums of the groups counted so far (old, new,
+    connecting order; the total once every group a column needs is in), later rows stay
+    empty. Corners need only the two copies, edges all three groups.
+  - Pressing the lit button again unlights it and shows the whole shape at lesson 2's
+    dim/bright/dashed levels. Corner dots fade with their copy; there are no coordinate
+    labels, since this lesson counts rather than names corners.
+  - The sandbox adds lesson 2's rung slider (0D–4D, starting at 4D); changing rung starts
+    that row's count over, and at 0D the buttons are disabled.
+  - The lesson shell gained held steps: Next waits until the lesson says the step is
+    done, and, like a revealed check, doesn't wait again on a second visit.
+- **Why:** Filled sums make the table the recurrence itself: 2·V(n − 1) is literally
+  "8 + 8". Keeping the 4D row empty during the check keeps the prediction real. The rung
+  slider lets the sandbox revisit any row, not only the tesseract's.
