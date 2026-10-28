@@ -4,6 +4,17 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] - 2026-10-28
+
+### Added
+
+- Net view beside the shadow and the slice: the tesseract's boundary cut open into its 8
+  cubes, laid out in 3D as a cross (a column of four with a cube on each side of the
+  second). Cubes are tinted by w, so as they fold they turn cool and visibly leave our
+  space.
+- A fold slider (0–100%) hinges the cubes back into the tesseract; fully folded, the net
+  is the shadow's cube in a cube. The net turns with xy, xz and yz only.
+
 ## [0.2.0] - 2026-10-28
 
 ### Added

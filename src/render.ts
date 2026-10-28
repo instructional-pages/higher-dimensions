@@ -5,8 +5,10 @@
 // - Projection: the shape's shadow along w, thin edges and very faint faces, with the
 //   current slice marked inside it.
 // - Slice: the cut at w = h, filled and shaded, with thin edges.
+// - Net: the 8 cubes of the tesseract's boundary, unfolded into 3D, drawn like the
+//   shadow and seen from further back.
 
-import { multiply, planeRotation, projectW, type Mat4, type Shape, type Vec3, type Vec4 } from "./math4d.ts";
+import { apply, multiply, planeRotation, projectW, type Mat4, type Shape, type Vec3, type Vec4 } from "./math4d.ts";
 import { cross, dot, type Slice } from "./slice.ts";
 
 // Viewer distance along w, for the perspective projection 4D → 3D. Rotated corners
@@ -54,7 +56,8 @@ interface View {
   draw(triangles: number[], lines: number[], solid: boolean): void;
 }
 
-function createView(canvas: HTMLCanvasElement): View | null {
+// `distance` is how far the camera stands from the centre of the view.
+function createView(canvas: HTMLCanvasElement, distance: number): View | null {
   const gl = canvas.getContext("webgl2");
   if (!gl) return null;
 
@@ -98,7 +101,7 @@ function createView(canvas: HTMLCanvasElement): View | null {
         canvas.height = height;
       }
       gl.viewport(0, 0, width, height);
-      gl.uniformMatrix4fv(cameraLoc, true, camera(width / height));
+      gl.uniformMatrix4fv(cameraLoc, true, camera(width / height, distance));
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([...triangles, ...lines]), gl.STREAM_DRAW);
@@ -116,23 +119,58 @@ export interface ProjectionView {
 }
 
 export function createProjection(canvas: HTMLCanvasElement, shape: Shape): ProjectionView | null {
-  const view = createView(canvas);
+  const view = createView(canvas, SHAPE_DISTANCE);
   if (!view) return null;
   return {
     draw(rotated, cut, h) {
-      const point = (v: Vec4, alpha: number) => [...projectW(v, W_DISTANCE), v[3], alpha];
-      const triangles = shape.faces.flatMap(([a, b, c, d]) =>
-        [a, b, c, a, c, d].flatMap((i) => point(rotated[i]!, FACE_ALPHA)),
-      );
+      const { triangles, lines } = wireframe(shape, rotated.map(shadow));
       // The slice's points are in the hyperplane w = h, so they cast their own shadow.
-      const lifted = cut.points.map((p) => [...p, h] as Vec4);
+      const lifted = cut.points.map((p) => shadow([...p, h]));
       for (const face of cut.faces)
         for (let k = 1; k + 1 < face.length; k++)
-          for (const i of [face[0]!, face[k]!, face[k + 1]!]) triangles.push(...point(lifted[i]!, MARK_ALPHA));
-      const lines = shape.edges.flatMap(([a, b]) => [...point(rotated[a]!, EDGE_ALPHA), ...point(rotated[b]!, EDGE_ALPHA)]);
+          for (const i of [face[0]!, face[k]!, face[k + 1]!]) triangles.push(...lifted[i]!, MARK_ALPHA);
       view.draw(triangles, lines, false);
     },
   };
+}
+
+export interface NetView {
+  // `net` is the unfolded tesseract; `turn` turns it in 3D only (xy, xz, yz), which
+  // keeps every point's w.
+  draw(net: Shape, turn: Mat4): void;
+}
+
+// The flat net spans y from −5 to 3 at w = 1, which the shadow scales by 3/2, so its
+// centre is at y = −1.5. Shifting it up turns the net about its own centre.
+const NET_SHIFT = 1.5;
+// The flat net reaches about 6.4 from its centre, twice the shadow's reach.
+const NET_DISTANCE = 22;
+
+export function createNetView(canvas: HTMLCanvasElement): NetView | null {
+  const view = createView(canvas, NET_DISTANCE);
+  if (!view) return null;
+  return {
+    draw(net, turn) {
+      const placed = net.vertices.map((v) => {
+        const [x, y, z] = shadow(v);
+        const [tx, ty, tz] = apply(turn, [x, y + NET_SHIFT, z, 0]);
+        return [tx, ty, tz, v[3]] as Vec4;
+      });
+      const { triangles, lines } = wireframe(net, placed);
+      view.draw(triangles, lines, false);
+    },
+  };
+}
+
+// A point's shadow along w, keeping its w for the tint.
+const shadow = (v: Vec4): Vec4 => [...projectW(v, W_DISTANCE), v[3]];
+
+// Very faint faces and thin edges for `shape`, its corners already placed in 3D (plus
+// w for the tint).
+function wireframe(shape: Shape, placed: Vec4[]) {
+  const triangles = shape.faces.flatMap(([a, b, c, d]) => [a, b, c, a, c, d].flatMap((i) => [...placed[i]!, FACE_ALPHA]));
+  const lines = shape.edges.flatMap(([a, b]) => [...placed[a]!, EDGE_ALPHA, ...placed[b]!, EDGE_ALPHA]);
+  return { triangles, lines };
 }
 
 export interface SliceView {
@@ -140,7 +178,7 @@ export interface SliceView {
 }
 
 export function createSliceView(canvas: HTMLCanvasElement): SliceView | null {
-  const view = createView(canvas);
+  const view = createView(canvas, SHAPE_DISTANCE);
   if (!view) return null;
   const toCamera = cameraDirection();
   return {
@@ -170,17 +208,20 @@ function cameraDirection(): Vec3 {
   return [CAMERA_TURN[8]!, CAMERA_TURN[9]!, CAMERA_TURN[10]!];
 }
 
+// The shadow and slice views' camera distance: rotated shadows reach about 3.4.
+const SHAPE_DISTANCE = 11;
+
 // Row-major, uploaded with transpose.
-function camera(aspect: number): Mat4 {
+function camera(aspect: number, distance: number): Mat4 {
   const fov = 0.6;
   const near = 1;
-  const far = 30;
+  const far = 3 * distance;
   const f = 1 / Math.tan(fov / 2);
   // Keep the whole shape in view on tall, narrow canvases too.
   const fx = Math.min(f / aspect, f);
   const fy = fx * aspect;
   const projection = [fx, 0, 0, 0, 0, fy, 0, 0, 0, 0, (near + far) / (near - far), (2 * near * far) / (near - far), 0, 0, -1, 0];
   const view = [...CAMERA_TURN];
-  view[11] = -11;
+  view[11] = -distance;
   return multiply(projection, view);
 }
