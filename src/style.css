@@ -17,26 +17,32 @@ main {
   height: 100vh;
 }
 
-#views {
+a {
+  color: var(--text);
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--muted);
+}
+
+/* The rows, one per small view, are set by linkViews. */
+.views {
   flex: 1;
   min-width: 0;
   display: grid;
   grid-template-columns: 1fr minmax(12rem, 24%);
-  grid-template-rows: 1fr 1fr;
 }
 
-/* The main view fills the left; the other two stack beside it, in page order. */
-#views .main {
+/* The main view fills the left; the others stack beside it, in page order. */
+.views .main {
   grid-column: 1;
-  grid-row: 1 / 3;
+  grid-row: 1 / -1;
 }
 
-#views figure:not(.main) {
+.views figure:not(.main) {
   grid-column: 2;
   cursor: pointer;
 }
 
-#views figure:not(.main):focus-visible {
+.views figure:not(.main):focus-visible {
   outline: 1px solid var(--muted);
   outline-offset: -1px;
 }
@@ -74,7 +80,7 @@ figure:not(.main) figcaption {
 
 /* Each mark's top left is its corner: the dot is centred there, the letter sits up and
    to the right. */
-#marks span {
+.marks span {
   position: absolute;
   padding-left: 0.4rem;
   color: var(--text);
@@ -84,7 +90,7 @@ figure:not(.main) figcaption {
   pointer-events: none;
 }
 
-#marks span::before {
+.marks span:not(.label)::before {
   content: "";
   position: absolute;
   left: -0.1875rem;
@@ -95,8 +101,28 @@ figure:not(.main) figcaption {
   background: var(--text);
 }
 
-figure:not(.main) #marks span {
+figure:not(.main) .marks span {
   font-size: 0.625rem;
+}
+
+/* Axis names, centred on the axis's end. */
+.marks .label {
+  padding: 0;
+  color: var(--muted);
+  transform: translate(-50%, -50%);
+}
+
+/* Lesson 1's point: a larger dot, tinted by its w. */
+.marks span.point::before {
+  left: -0.3125rem;
+  bottom: -0.3125rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--tint);
+}
+
+.marks .point {
+  padding: 0;
 }
 
 aside {
@@ -112,8 +138,9 @@ h1 {
   letter-spacing: 0.02em;
 }
 
-#status,
-.note {
+.status,
+.note,
+.up {
   color: var(--muted);
   font-size: 0.875rem;
   line-height: 1.5;
@@ -191,6 +218,178 @@ h1 {
   text-align: center;
 }
 
-#corners .start {
+.corners .start {
+  color: var(--muted);
+}
+
+/* The lesson shell. */
+.up {
+  display: inline-block;
+  margin-bottom: 2rem;
+  text-decoration: none;
+}
+
+.up:hover {
+  color: var(--text);
+}
+
+.counter {
+  margin: -0.5rem 0 1.5rem;
+}
+
+.text p {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.check {
+  margin: 1.5rem 0;
+}
+
+.check label {
+  display: grid;
+  grid-template-columns: 2rem 4rem 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.check output {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.check .right output {
+  color: var(--text);
+}
+
+.check p {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+input[type="text"],
+button {
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--faint);
+  border-radius: 2px;
+}
+
+input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.25rem 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="text"]:read-only {
+  border-color: transparent;
+}
+
+button {
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--muted);
+}
+
+button:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+input:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 1px solid var(--muted);
+  outline-offset: 2px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+/* Lesson 1's coordinates: a column vector, one row per axis, with a w scale under it. */
+.column {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: auto 4ch;
+  gap: 0.5em 1em;
+  padding: 0.5em 1em;
+  border-left: 1px solid var(--muted);
+  border-right: 1px solid var(--muted);
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+figure:not(.main) .column {
+  font-size: 0.875rem;
+}
+
+.column span {
+  text-align: right;
+}
+
+.column .axis {
+  color: var(--muted);
+}
+
+.column .none {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.legend {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.legend[hidden] {
+  display: none;
+}
+
+.legend .scale {
+  width: 40%;
+  height: 2px;
+}
+
+/* The contents page: one quiet column of text. */
+main.page {
+  display: block;
+  height: auto;
+}
+
+.contents {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+}
+
+.contents ol {
+  margin: 2.5rem 0;
+  padding-left: 1.5rem;
+  line-height: 2.2;
+}
+
+.contents .later {
   color: var(--muted);
 }

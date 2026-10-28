@@ -4,6 +4,19 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.5.0] - 2026-10-28
+
+### Added
+
+- The course: a contents page listing the 12 lessons, each lesson at its own address
+  (`#1`, `#2`, …) and the tesseract sandbox at `#sandbox`. The browser's Back button works.
+- The lesson shell: short text steps beside the live view, with Back and Next. A check asks
+  you to type your prediction first; Reveal shows the answers, and Next waits for it.
+- Lesson 1, "Where is a point?": one point, and one more number for each new direction,
+  from 0D to 4D. Each axis brings its slider, a line walks the point out along each axis
+  in turn, and the coordinate column grows by one entry per rung. At 4D the point's color
+  shows its w, the scale every view uses. Ends in a sandbox.
+
 ## [0.4.0] - 2026-10-28
 
 ### Added

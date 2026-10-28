@@ -251,3 +251,41 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   ordinary edge, an edge into w and the centre symmetry (D's turned coordinates are always
   minus A's). Sharing columns with the matrix lets the learner read M·v off row by row.
   HTML marks need no text rendering in WebGL.
+
+## 2026-10-28: Lesson navigation, rungs and checks
+
+- **Question:** One page per lesson or a single page? How are lesson 1's 0D–3D rungs
+  drawn? How does the learner answer a check?
+- **Choice:** One page; the URL hash names the lesson (`#1`), the sandbox (`#sandbox`) or,
+  with no hash, the contents. The rungs use the same WebGL renderer and camera as the
+  tesseract. A check asks for a typed number per prompt, and Reveal marks each one.
+- **Why:** One small bundle and instant switching, while every lesson still has its own
+  address and the Back button works. One look at every rung makes 4D read as the next
+  step of the same picture. Typing a number forces a real prediction, where choices
+  invite guessing. User's choice.
+
+## 2026-10-28: Lesson shell and lesson 1 details (decided by Claude, pending review)
+
+- **Question:** Details the shell and lesson 1 needed that the outline left open.
+- **Choice:**
+  - The contents page lists all 12 lessons, unbuilt ones muted, plus a link to the
+    sandbox. An unbuilt lesson's address shows the contents.
+  - Steps have Back as well as Next; the step number isn't in the URL, so a reload starts
+    the lesson over. Reveal waits for a number in every prompt, and Next waits for
+    Reveal, once: going back to a revealed check doesn't hold Next again. The last step's
+    button leads to the next lesson, or to the contents after the last one built.
+  - Lesson 1 has seven steps: 0D, 1D, 2D, 3D, 4D, the check (4D and 7D), and the sandbox.
+    Each rung adds its axis and slider (−1 to 1, starting at 0); going back to a lower
+    rung sets the dropped coordinates to 0. A line walks the point out from the origin
+    along x, then y, z and w, one step per coordinate. The point and axis names are HTML
+    over the canvas, like the corner marks; the point is tinted by w.
+  - The coordinate column is an HTML view, swappable like the others, and the w color
+    scale appears under it at 4D.
+  - Changing page rebuilds it and frees the old WebGL contexts at once.
+- **Why:** The full list shows where the course goes without links that lead nowhere.
+  Back lets the learner reread a step; nothing is saved, so the step needn't survive a
+  reload. Starting each new axis at 0 shows the point hasn't moved into it yet. The walk
+  makes each number a step along its own direction, and in 4D the last step, along w,
+  goes outward from the centre and changes color, which is exactly what w does in a
+  shadow. Browsers cap the number of live WebGL contexts, so switching pages often
+  mustn't leak them.
