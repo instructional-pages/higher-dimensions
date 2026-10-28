@@ -6,7 +6,8 @@ export const span = (text: string, className = "") => Object.assign(document.cre
 // +0 turns −0.00 into 0.00.
 export const fixed = (x: number) => (Math.round(x * 100) / 100 + 0).toFixed(2);
 
-// A labelled slider row; `onInput` receives each new value, `show` writes it out.
+// A labelled slider row, moving in steps of `step`; `onInput` receives each new value,
+// `show` writes it out. Returns the input.
 export function addSlider(
   parent: HTMLElement,
   name: string,
@@ -15,11 +16,12 @@ export function addSlider(
   value: number,
   onInput: (x: number) => void,
   show = fixed,
+  step = 0.01,
 ) {
   const row = document.createElement("label");
   const input = document.createElement("input");
   const output = document.createElement("output");
-  Object.assign(input, { type: "range", min: min.toFixed(2), max: max.toFixed(2), step: "0.01", value: value.toFixed(2) });
+  Object.assign(input, { type: "range", min: min.toFixed(2), max: max.toFixed(2), step: String(step), value: value.toFixed(2) });
   output.textContent = show(value);
   row.append(name, input, output);
   parent.append(row);
@@ -28,6 +30,7 @@ export function addSlider(
     output.textContent = show(x);
     onInput(x);
   });
+  return input;
 }
 
 export interface ViewSpec {

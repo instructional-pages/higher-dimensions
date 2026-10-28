@@ -5,7 +5,7 @@ A public, browser-based course for properly learning how dimensions work: 4D fir
 ends in an interactive sandbox. Visuals give the intuition, and the coordinates and
 matrices are shown next to them so the learner sees *why* things move the way they do.
 
-Status: lesson 1 ("Where is a point?") of 12, in a lesson shell with text steps,
+Status: lessons 1 and 2 ("Where is a point?", "Building by extrusion") of 12, in a lesson shell with text steps,
 predict-then-reveal checks and a sandbox, plus the tesseract sandbox (projection, slice
 and net views, one main and two small, six rotation sliders, a cut slider and a fold
 slider, live 4×4 matrix and corner coordinates). See [docs/BRIEF.md](docs/BRIEF.md), the lesson outline in

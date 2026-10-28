@@ -60,8 +60,9 @@ push the copy one unit along the new axis, connect each corner to its copy.
 coordinates (all 0s and 1s), so a cube's corners are every list of n zeros and ones.
 
 **Steps:** an extrusion slider (0 to 1) drags the copy out at each rung. At 4D the copy
-moves along w: it is the same cube, but warm-colored, and in projection it sits inside
-the original. Old copy, new copy and connecting edges are colored distinctly.
+moves along w: it is the same cube, but warm-colored, and in projection it sits around
+the original (nearer in w looks bigger). Old copy, new copy and connecting edges are told
+apart by brightness and dashes (dim, bright, dashed), so the w tint keeps its meaning.
 
 **Check:** before the tesseract is extruded, "how many corners will it have?" (16).
 
