@@ -200,3 +200,29 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   the cut stays put). Same camera and tint let the two views be compared directly;
   shading makes a filled solid read as 3D. Marking the slice in the shadow shows where
   the cut is, a first step toward the linked views.
+
+## 2026-10-28: Net view coloring and sliders
+
+- **Question:** Tint the net's cubes by w, or give opposite pairs a shared color (as the
+  lesson 11 outline says)? And which sliders turn the net?
+- **Choice:** Tint by w, like every other view. Only xy, xz and yz turn the net.
+- **Why:** The w tint shows the cubes leaving our space as they fold; pair colors can come
+  with lesson 11 itself. The 3D turns keep every point's w, so the wide net stays clear of
+  the viewer at w = 3, and they match lesson 11's sandbox. Fully folded, the net matches the
+  shadow only while the w sliders are at 0. User's choice.
+
+## 2026-10-28: Net view details (decided by Claude, pending review)
+
+- **Question:** Details the net view needed that the brief and outline left open.
+- **Choice:** The base cube is the cell w = +1. The cells x = ±1, y = ±1 and z = ±1 hinge on
+  its faces, and w = −1 hinges on the far face of y = −1, so the column is y = +1, base,
+  y = −1, w = −1 and the outline's check (the top cube is opposite the third) holds. Flat,
+  the net lies in w = 1. Each hinge turns about its shared square in one space axis and w,
+  by (1 − fold) · 90°; the slider starts at 0% (flat). The net is drawn like the shadow
+  (perspective along w, thin edges, faint faces) as a third view, from further back so the
+  whole flat net fits, so the folded tesseract looks smaller than in the shadow view. It
+  turns about the flat net's centre.
+- **Why:** Putting the base at the viewer's side (w = +1) folds the cubes away from the
+  viewer, so mid-fold they shrink instead of swelling (the furthest corner reaches
+  w ≈ −2.52); folding toward the viewer would reach w ≈ 2.52, enlarged 6×. One fixed
+  framing keeps sizes comparable across the fold: the cross visibly closes up into a box.
