@@ -414,6 +414,67 @@ figure:not(.main) .corners {
   grid-column: 1 / -1;
 }
 
+/* Lesson 3's corners fade while another group is lit. */
+.marks .corner.ghost::before {
+  opacity: 0.2;
+}
+
+/* Lesson 3's count: one row per rung, the sums so far in this rung's row. */
+.count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0.6em 2em;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+figure:not(.main) .count {
+  font-size: 0.75rem;
+}
+
+.count span {
+  text-align: right;
+}
+
+.count .head,
+.count .rung,
+.count .later {
+  color: var(--muted);
+}
+
+.count .head {
+  font-size: 0.75em;
+}
+
+.count .rung.now {
+  color: var(--text);
+}
+
+/* The groups to light up, one button each; a counted one keeps a brighter border. */
+.groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.groups button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+.groups button.counted {
+  border-color: var(--muted);
+}
+
+.groups button[aria-pressed="true"] {
+  border-color: var(--text);
+}
+
 /* The contents page: one quiet column of text. */
 main.page {
   display: block;

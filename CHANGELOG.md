@@ -4,6 +4,17 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.7.0] - 2026-10-28
+
+### Added
+
+- Lesson 3, "Counting corners and edges": extrusion tells you how to count. On each rung
+  from 1D to 4D, light up the old copy, the new copy and the connecting edges one at a
+  time; each adds its corners and edges to that rung's row of the count table, as a sum
+  (4D: 8 + 8 = 16 corners, 12 + 12 + 8 = 32 edges). The rest of the shape fades while a
+  group is lit. Predict the tesseract's row before counting it, then the corners of a 10D
+  cube, which leads to V(n) = 2ⁿ. Ends in a sandbox where you pick the rung.
+
 ## [0.6.0] - 2026-10-28
 
 ### Added
