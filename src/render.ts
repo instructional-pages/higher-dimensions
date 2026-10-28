@@ -7,6 +7,7 @@
 // - Slice: the cut at w = h, filled and shaded, with thin edges.
 // - Net: the 8 cubes of the tesseract's boundary, unfolded into 3D, drawn like the
 //   shadow and seen from further back.
+// - Lines: any 4D segments' shadows, for the lessons' axes and paths.
 
 import { apply, multiply, planeRotation, projectW, type Mat4, type Shape, type Vec3, type Vec4 } from "./math4d.ts";
 import { cross, dot, type Slice } from "./slice.ts";
@@ -14,6 +15,19 @@ import { cross, dot, type Slice } from "./slice.ts";
 // Viewer distance along w, for the perspective projection 4D → 3D. Rotated corners
 // reach |w| = 2, so this must stay above 2.
 export const W_DISTANCE = 3;
+
+// The w tint, as RGB from 0 to 1: w = -1 (far) is cool, w = +1 (near) is warm.
+export const COOL: Vec3 = [0.35, 0.62, 1];
+export const WARM: Vec3 = [1, 0.55, 0.25];
+
+// The tint at `w`, the shader's formula on the CPU, for HTML drawn over the views.
+export const tint = (w: number): Vec3 => {
+  const t = Math.min(Math.max(0.5 + 0.5 * w, 0), 1);
+  return COOL.map((c, k) => c + (WARM[k]! - c) * t) as Vec3;
+};
+
+// A CSS color for `rgb`.
+export const css = (rgb: Vec3): string => `rgb(${rgb.map((c) => Math.round(c * 255)).join(" ")})`;
 
 const VERTEX = `#version 300 es
 layout(location = 0) in vec4 a_point; // x, y, z, plus the 4D w for the tint
@@ -33,9 +47,8 @@ in float v_w;
 in float v_alpha;
 out vec4 color;
 void main() {
-  // w = -1 (far) is cool, w = +1 (near) is warm.
-  vec3 cool = vec3(0.35, 0.62, 1.0);
-  vec3 warm = vec3(1.0, 0.55, 0.25);
+  vec3 cool = vec3(${COOL.join(", ")});
+  vec3 warm = vec3(${WARM.join(", ")});
   color = vec4(mix(cool, warm, clamp(0.5 + 0.5 * v_w, 0.0, 1.0)), v_alpha);
 }`;
 
@@ -175,6 +188,25 @@ export function createNetView(canvas: HTMLCanvasElement): NetView | null {
       const { triangles, lines } = wireframe(net, placed);
       view.draw(triangles, lines, false);
     },
+  };
+}
+
+export interface LineView {
+  // Each segment's shadow, at its own brightness from 0 to 1.
+  draw(segments: { from: Vec4; to: Vec4; alpha: number }[]): void;
+  // Where a 4D point's shadow lands on the canvas, in CSS pixels.
+  screen(v: Vec4): [number, number];
+}
+
+export function createLineView(canvas: HTMLCanvasElement): LineView | null {
+  const view = createView(canvas, SHAPE_DISTANCE);
+  if (!view) return null;
+  return {
+    draw(segments) {
+      const lines = segments.flatMap(({ from, to, alpha }) => [...shadow(from), alpha, ...shadow(to), alpha]);
+      view.draw([], lines, false);
+    },
+    screen: (v) => view.screen(projectW(v, W_DISTANCE)),
   };
 }
 

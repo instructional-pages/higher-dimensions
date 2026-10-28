@@ -9,45 +9,7 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <main>
-      <div id="views">
-        <figure class="main">
-          <canvas id="projection" aria-label="The tesseract's shadow in 3D, with the slice marked inside it"></canvas>
-          <figcaption>Shadow</figcaption>
-          <div id="marks"></div>
-        </figure>
-        <figure>
-          <canvas id="slice" aria-label="The 3D slice of the tesseract where w = h"></canvas>
-          <figcaption>Slice at w = h</figcaption>
-        </figure>
-        <figure>
-          <canvas id="net" aria-label="The tesseract's net: its 8 cubes unfolded into 3D, folding back into the tesseract"></canvas>
-          <figcaption>Net</figcaption>
-        </figure>
-      </div>
-      <aside>
-        <h1>The tesseract</h1>
-        <p id="status">Each slider turns it in one plane, in radians. The last three turn it into w.</p>
-        <div id="sliders" class="sliders"></div>
-        <p class="note">The slice keeps only the points where w&nbsp;=&nbsp;h.</p>
-        <div id="cut" class="sliders"></div>
-        <p class="note">
-          The net is the boundary cut open into 8 cubes. Folding hinges them back into the
-          tesseract. It turns only in xy, xz and yz.
-        </p>
-        <div id="fold" class="sliders"></div>
-        <div id="matrix" class="grid"></div>
-        <p class="note">
-          M = R<sub>zw</sub> R<sub>yw</sub> R<sub>xw</sub> R<sub>yz</sub> R<sub>xz</sub> R<sub>xy</sub>:
-          xy turns first, zw last.
-        </p>
-        <div id="corners" class="grid"></div>
-        <p class="note">
-          Four corners, marked in the shadow: where each starts, and where M sends it. A and B
-          differ in x, A and C in w, and D is opposite A.
-        </p>
-      </aside>
-    </main>
+    <main></main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
