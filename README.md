@@ -5,8 +5,8 @@ A public, browser-based course for properly learning how dimensions work: 4D fir
 ends in an interactive sandbox. Visuals give the intuition, and the coordinates and
 matrices are shown next to them so the learner sees *why* things move the way they do.
 
-Status: a tesseract sandbox (projection, slice and net views, six rotation sliders, a cut
-slider and a fold slider, live 4×4 matrix);
+Status: a tesseract sandbox (projection, slice and net views, one main and two small, six
+rotation sliders, a cut slider and a fold slider, live 4×4 matrix and corner coordinates);
 the lessons come next. See [docs/BRIEF.md](docs/BRIEF.md), the lesson outline in
 [docs/LESSONS.md](docs/LESSONS.md), and [CHANGELOG.md](CHANGELOG.md).
 

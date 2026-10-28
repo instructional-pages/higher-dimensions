@@ -54,6 +54,8 @@ interface View {
   // Draws triangles then lines, each a flat list of STRIDE floats per vertex. With
   // `solid`, nearer surfaces hide what's behind them; otherwise everything adds up.
   draw(triangles: number[], lines: number[], solid: boolean): void;
+  // Where a 3D point lands on the canvas, in CSS pixels from its top left.
+  screen(p: Vec3): [number, number];
 }
 
 // `distance` is how far the camera stands from the centre of the view.
@@ -110,12 +112,25 @@ function createView(canvas: HTMLCanvasElement, distance: number): View | null {
       gl.drawArrays(gl.TRIANGLES, 0, triangles.length / STRIDE);
       gl.drawArrays(gl.LINES, triangles.length / STRIDE, lines.length / STRIDE);
     },
+    screen(p) {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      return toScreen(camera(width / height, distance), p, width, height);
+    },
   };
+}
+
+// Where `camera` puts the 3D point `p` on a width × height canvas, from its top left.
+export function toScreen(camera: Mat4, p: Vec3, width: number, height: number): [number, number] {
+  const [x, y, , w] = apply(camera, [...p, 1]);
+  return [((1 + x / w) / 2) * width, ((1 - y / w) / 2) * height];
 }
 
 export interface ProjectionView {
   // `rotated` are the shape's corners after rotation; `cut` is the current slice at w = h.
   draw(rotated: Vec4[], cut: Slice, h: number): void;
+  // Where a turned 4D point's shadow lands on the canvas, in CSS pixels.
+  screen(v: Vec4): [number, number];
 }
 
 export function createProjection(canvas: HTMLCanvasElement, shape: Shape): ProjectionView | null {
@@ -131,6 +146,7 @@ export function createProjection(canvas: HTMLCanvasElement, shape: Shape): Proje
           for (const i of [face[0]!, face[k]!, face[k + 1]!]) triangles.push(...lifted[i]!, MARK_ALPHA);
       view.draw(triangles, lines, false);
     },
+    screen: (v) => view.screen(projectW(v, W_DISTANCE)),
   };
 }
 
@@ -212,7 +228,7 @@ function cameraDirection(): Vec3 {
 const SHAPE_DISTANCE = 11;
 
 // Row-major, uploaded with transpose.
-function camera(aspect: number, distance: number): Mat4 {
+export function camera(aspect: number, distance: number): Mat4 {
   const fov = 0.6;
   const near = 1;
   const far = 3 * distance;

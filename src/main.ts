@@ -1,9 +1,10 @@
 // Tesseract sandbox: six plane sliders turn the tesseract, a seventh moves the cut
-// w = h, an eighth folds the net. The shadow, the slice and the net sit side by side,
-// and the 4×4 matrix shows the combined rotation. Redraws only when a slider moves or
-// the window resizes.
+// w = h, an eighth folds the net. One of the shadow, the slice and the net is the main
+// view, the other two sit small beside it; clicking a small one swaps it in. The 4×4
+// matrix shows the combined rotation, and four corners show where it sends them.
+// Redraws only when a slider moves or the window resizes.
 
-import { AXES, PLANES, apply, rotation, tesseract, type Angles } from "./math4d.ts";
+import { AXES, PLANES, apply, rotation, tesseract, type Angles, type Vec4 } from "./math4d.ts";
 import { net } from "./net.ts";
 import { createNetView, createProjection, createSliceView } from "./render.ts";
 import { slice } from "./slice.ts";
@@ -15,6 +16,44 @@ const sliders = document.getElementById("sliders")!;
 const cutSlider = document.getElementById("cut")!;
 const foldSlider = document.getElementById("fold")!;
 const matrix = document.getElementById("matrix")!;
+const cornerTable = document.getElementById("corners")!;
+const marks = document.getElementById("marks")!;
+
+// A and B differ in x, A and C in w, and D is opposite A.
+const CORNERS: [string, Vec4][] = [
+  ["A", [1, 1, 1, 1]],
+  ["B", [-1, 1, 1, 1]],
+  ["C", [1, 1, 1, -1]],
+  ["D", [-1, -1, -1, -1]],
+];
+
+// The main view spans the left; the others are buttons that swap themselves in. Only
+// classes change, so each canvas keeps its WebGL context.
+const figures = [...document.querySelectorAll<HTMLElement>("#views figure")];
+const makeMain = (main: HTMLElement) => {
+  for (const figure of figures) {
+    const small = figure !== main;
+    figure.classList.toggle("main", !small);
+    if (small) {
+      figure.tabIndex = 0;
+      figure.role = "button";
+      figure.ariaLabel = `Make ${figure.querySelector("figcaption")!.textContent} the main view`;
+    } else {
+      figure.removeAttribute("tabindex");
+      figure.removeAttribute("role");
+      figure.removeAttribute("aria-label");
+    }
+  }
+};
+for (const figure of figures) {
+  figure.addEventListener("click", () => makeMain(figure));
+  figure.addEventListener("keydown", (e) => {
+    if (figure.classList.contains("main") || (e.key !== "Enter" && e.key !== " ")) return;
+    e.preventDefault();
+    makeMain(figure);
+  });
+}
+makeMain(figures[0]!);
 
 const shape = tesseract();
 const projection = createProjection(projectionCanvas, shape);
@@ -66,6 +105,19 @@ if (!projection || !sliceView || !netView) {
     for (let c = 0; c < 4; c++) cells.push(matrix.appendChild(document.createElement("span")));
   }
 
+  // Same columns as the matrix: each corner's start in muted ±1, then where M sends it.
+  const turnedCells: HTMLElement[] = [];
+  const span = (text: string, className = "") => Object.assign(document.createElement("span"), { textContent: text, className });
+  cornerTable.append(span(""), ...AXES.map((axis) => span(axis, "axis")));
+  for (const [label, corner] of CORNERS) {
+    cornerTable.append(span(label, "axis"), ...corner.map((x) => span(String(x), "start")), span("→", "axis"));
+    for (let c = 0; c < 4; c++) turnedCells.push(cornerTable.appendChild(span("")));
+  }
+  const markSpans = CORNERS.map(([label]) => marks.appendChild(span(label)));
+
+  // +0 turns −0.00 into 0.00.
+  const show = (x: number) => (Math.round(x * 100) / 100 + 0).toFixed(2);
+
   let pending = false;
   const schedule = () => {
     if (pending) return;
@@ -73,8 +125,14 @@ if (!projection || !sliceView || !netView) {
     requestAnimationFrame(() => {
       pending = false;
       const m = rotation(angles);
-      // +0 turns −0.00 into 0.00.
-      m.forEach((x, i) => (cells[i]!.textContent = (Math.round(x * 100) / 100 + 0).toFixed(2)));
+      m.forEach((x, i) => (cells[i]!.textContent = show(x)));
+      CORNERS.forEach(([, corner], k) => {
+        const turned = apply(m, corner);
+        turned.forEach((x, c) => (turnedCells[k * 4 + c]!.textContent = show(x)));
+        const [left, top] = projection.screen(turned);
+        markSpans[k]!.style.left = `${left}px`;
+        markSpans[k]!.style.top = `${top}px`;
+      });
       const rotated = shape.vertices.map((v) => apply(m, v));
       const cut = slice(shape, rotated, h);
       projection.draw(rotated, cut, h);
