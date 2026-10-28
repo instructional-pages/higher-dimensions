@@ -186,3 +186,17 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   16 corners cost about 22 µs per frame on the CPU, so no shader math is needed, and
   drawing on demand keeps an idle page at zero cost. Node's runner adds nothing to
   install.
+
+## 2026-10-28: Slice view details (decided by Claude, pending review)
+
+- **Question:** Details the slice view needed that the brief and outline left open.
+- **Choice:** The cut is the hyperplane w = h in the rotated shape's coordinates, with an
+  h slider from −2 to 2 (the reach of the rotated corners). The slice sits beside the
+  shadow at the same size and camera, filled with its faces shaded by how squarely they
+  face the camera, and hidden edges hidden. It is tinted by h, the same cool-to-warm
+  scale as the shadow's edges. The current slice is also marked, faintly filled, inside
+  the shadow. Past the shape the slice view is simply empty.
+- **Why:** Cutting the rotated shape at a fixed w is lesson 10's model (the shape turns,
+  the cut stays put). Same camera and tint let the two views be compared directly;
+  shading makes a filled solid read as 3D. Marking the slice in the shadow shows where
+  the cut is, a first step toward the linked views.

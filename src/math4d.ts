@@ -67,10 +67,13 @@ export interface Shape {
   edges: [number, number][];
   // Squares as four vertex indices in order around the square.
   faces: [number, number, number, number][];
+  // The 3D cells bounding the shape, as their vertex indices.
+  cells: number[][];
 }
 
 // The tesseract with corners at ±1. Vertex i has bit k set when coordinate k is +1,
-// so an edge joins corners that differ in one bit and a square spans two bits.
+// so an edge joins corners that differ in one bit, a square spans two bits, and each of
+// the 8 cubic cells holds one bit fixed at 0 or 1.
 export function tesseract(): Shape {
   const vertices: Vec4[] = [];
   for (let i = 0; i < 16; i++)
@@ -87,5 +90,8 @@ export function tesseract(): Shape {
         if (!(i & bb)) faces.push([i, i | ba, i | ba | bb, i | bb]);
       }
     }
-  return { vertices, edges, faces };
+  const cells: number[][] = [];
+  for (let k = 0; k < 4; k++)
+    for (const bit of [0, 1]) cells.push([...Array(16).keys()].filter((i) => ((i >> k) & 1) === bit));
+  return { vertices, edges, faces, cells };
 }

@@ -10,11 +10,22 @@
   </head>
   <body>
     <main>
-      <canvas id="view" aria-label="The tesseract's shadow in 3D, drawn on the screen"></canvas>
+      <div id="views">
+        <figure>
+          <canvas id="projection" aria-label="The tesseract's shadow in 3D, with the slice marked inside it"></canvas>
+          <figcaption>Shadow</figcaption>
+        </figure>
+        <figure>
+          <canvas id="slice" aria-label="The 3D slice of the tesseract where w = h"></canvas>
+          <figcaption>Slice at w = h</figcaption>
+        </figure>
+      </div>
       <aside>
         <h1>The tesseract</h1>
         <p id="status">Each slider turns it in one plane, in radians. The last three turn it into w.</p>
-        <div id="sliders"></div>
+        <div id="sliders" class="sliders"></div>
+        <p class="note">The slice keeps only the points where w&nbsp;=&nbsp;h.</p>
+        <div id="cut" class="sliders"></div>
         <div id="matrix"></div>
         <p class="note">
           M = R<sub>zw</sub> R<sub>yw</sub> R<sub>xw</sub> R<sub>yz</sub> R<sub>xz</sub> R<sub>xy</sub>:

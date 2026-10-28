@@ -87,3 +87,13 @@ test("every edge has length 2 and every square has sides of length 2", () => {
   for (const [i, j] of edges) assert.equal(dist(i, j), 2);
   for (const f of faces) for (let k = 0; k < 4; k++) assert.equal(dist(f[k]!, f[(k + 1) % 4]!), 2);
 });
+
+test("the tesseract has 8 cubic cells, one per side of each axis", () => {
+  const { vertices, cells } = tesseract();
+  assert.equal(cells.length, 8);
+  for (const cell of cells) {
+    assert.equal(cell.length, 8);
+    // One coordinate is the same at every corner of the cell.
+    assert.equal([0, 1, 2, 3].filter((k) => new Set(cell.map((i) => vertices[i]![k])).size === 1).length, 1);
+  }
+});
