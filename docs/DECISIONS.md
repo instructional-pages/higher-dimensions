@@ -289,3 +289,37 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   goes outward from the centre and changes color, which is exactly what w does in a
   shadow. Browsers cap the number of live WebGL contexts, so switching pages often
   mustn't leak them.
+
+## 2026-10-28: Lesson 2, extrusion edges and placement
+
+- **Question:** How are the old copy, the new copy and the connecting edges told apart,
+  when edges are tinted by w? Where does the shape sit, given its corners are labelled
+  with 0s and 1s?
+- **Choice:** The old copy is dim, the new copy bright, and the connecting edges dashed;
+  the w tint is untouched. Corners sit at their true coordinates, with (0, …, 0) at the
+  origin and lesson 1's faint axes, so the shape is off-centre.
+- **Why:** Brightness and dashes leave color meaning only w at every rung, so at 4D the
+  copy warming up is the w direction itself. True coordinates make each label match the
+  picture. At 4D the copy (w = 1) is nearer than the cube (w = 0), so its shadow is bigger
+  and sits around the cube, not inside it as the outline first said. User's choice.
+
+## 2026-10-28: Lesson 2 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 2 needed that the outline and the choices above left open.
+- **Choice:**
+  - Seven steps: 0D (a lone point), 1D, 2D, 3D, the check, 4D, and the sandbox. Each
+    extrusion step starts with the copy at 0, so the learner drags it out.
+  - The check stands on the finished cube, with no slider and the table showing only its
+    8 corners, so the answer (16) isn't on screen before Reveal.
+  - The extrusion slider is named for the new axis (x, y, z or w): it sets the copy's
+    coordinate along it. The sandbox adds a rung slider (0D–4D, whole steps) and starts
+    on the finished tesseract; at 0D the extrusion slider is disabled.
+  - Every corner is a dot tinted by its w, labelled with its coordinates (the moving one
+    to two places mid-drag); the old copy's labels are dimmer. Labels may overlap while
+    the copy is near the old one, and at 4D (0, 0, 0, 0) and (0, 0, 0, 1) share a shadow.
+  - The small view is a table of the old copy's corners beside the new copy's, row by
+    row, tinted by w at 4D, with the w scale under it.
+- **Why:** Dragging from 0 makes the sweep the learner's own action. Hiding the 16 until
+  Reveal keeps the check a real prediction. Naming the slider by its axis says exactly
+  what number it changes, and fits the slider row. Row-by-row pairing shows each corner
+  next to its copy, differing only in the last number.

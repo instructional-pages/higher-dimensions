@@ -125,6 +125,20 @@ figure:not(.main) .marks span {
   padding: 0;
 }
 
+/* Lesson 2's corners: a dot tinted by its w, the coordinates up and to the right, the
+   old copy's dimmer than the new copy's. */
+.marks span.corner::before {
+  background: var(--tint);
+}
+
+.marks .corner {
+  color: var(--muted);
+}
+
+.marks .corner.new {
+  color: var(--text);
+}
+
 aside {
   width: 18rem;
   padding: 3rem 2.5rem;
@@ -370,6 +384,34 @@ figure:not(.main) .column {
 .legend .scale {
   width: 40%;
   height: 2px;
+}
+
+/* Lesson 2's corners: the old copy's and the new copy's, side by side. */
+.corners {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.4em 2em;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+figure:not(.main) .corners {
+  font-size: 0.75rem;
+}
+
+.corners .head,
+.corners .none {
+  color: var(--muted);
+  font-size: 0.75em;
+}
+
+.corners .none {
+  grid-column: 1 / -1;
 }
 
 /* The contents page: one quiet column of text. */

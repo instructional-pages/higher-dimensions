@@ -4,6 +4,18 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.6.0] - 2026-10-28
+
+### Added
+
+- Lesson 2, "Building by extrusion": every cube is the one below it, dragged along a new
+  direction. A slider drags a copy of the shape out along each new axis in turn, from a
+  point to a segment, a square, a cube and, along w, the tesseract. The old copy is dim,
+  the new copy bright, and the edges joining them dashed. Every corner shows its
+  coordinates, all 0s and 1s once the copy is out, and a table lists both copies' corners.
+  Before the tesseract, predict how many corners it will have. Ends in a sandbox where
+  you pick the rung.
+
 ## [0.5.0] - 2026-10-28
 
 ### Added
