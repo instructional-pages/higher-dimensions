@@ -358,3 +358,11 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Why:** Filled sums make the table the recurrence itself: 2·V(n − 1) is literally
   "8 + 8". Keeping the 4D row empty during the check keeps the prediction real. The rung
   slider lets the sandbox revisit any row, not only the tesseract's.
+
+## 2026-10-28: Owner
+
+- **Question:** Where does the repo live now?
+- **Choice:** Moved from `ntfifwyb` to the `instructional-pages` organization, which holds public
+  browser courses. Its shared rules (`~/projects/instructional-pages/CLAUDE.md`) apply here,
+  and this repo's `CLAUDE.md` overrides them.
+- **Why:** The user created the organization so courses share the same principles, look and tooling.

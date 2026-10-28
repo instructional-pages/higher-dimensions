@@ -5,6 +5,9 @@ A public, browser-based course for properly learning how dimensions work: 4D fir
 ends in an interactive sandbox. Visuals give the intuition, and the coordinates and
 matrices are shown next to them so the learner sees *why* things move the way they do.
 
+Part of the `instructional-pages` organization: its shared rules (`../CLAUDE.md`, from
+`claude-toolkit`) apply, and this file overrides them.
+
 The spec is `docs/BRIEF.md`; decisions are in `docs/DECISIONS.md`. Check both before
 asking the user anything.
 

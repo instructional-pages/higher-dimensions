@@ -102,7 +102,7 @@ learner rotate, slice and unfold a shape while the numbers update alongside.
 
 ## Decided
 
-- Name and repo: `higher-dimensions-explorer`, under `ntfifwyb` (personal account).
+- Name and repo: `higher-dimensions-explorer`, under the `instructional-pages` organization (moved from `ntfifwyb` on 2026-10-28).
 - Intuition and math together: visuals first, with the numbers alongside.
 - Guided lessons, each ending in a sandbox.
 - Web app in the browser.
