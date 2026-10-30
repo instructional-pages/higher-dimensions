@@ -505,6 +505,80 @@ figure:not(.main) .count .sum {
   border-color: var(--text);
 }
 
+/* Lesson 5's numbers: the angle, then worked formulas or a matrix times a column, one
+   line each; a worked formula's second line sits under its first. */
+.numbers {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+figure:not(.main) .numbers {
+  font-size: 0.75rem;
+}
+
+.numbers .note {
+  margin-top: -0.4em;
+  color: var(--muted);
+  font-size: 0.75em;
+}
+
+.numbers .then {
+  margin-top: -0.4em;
+  padding-left: 1.4em;
+}
+
+.numbers .product {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin: 0.5em 0;
+}
+
+/* A matrix or column: its entries in a grid between two thin brackets. */
+.bracket {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 1), auto);
+  gap: 0.4em 1em;
+  padding: 0.3em 0.6em;
+  border-left: 1px solid var(--muted);
+  border-right: 1px solid var(--muted);
+}
+
+.bracket span {
+  text-align: right;
+}
+
+/* The rows not being multiplied out. */
+.bracket .dim {
+  color: var(--muted);
+}
+
+.numbers .turned {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0.4em 0.75em;
+  margin-top: 0.5em;
+}
+
+.turned span:nth-child(3n + 2) {
+  color: var(--muted);
+}
+
+/* A formula set apart in the step text. */
+aside .formula {
+  padding-left: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
 /* The contents page: one quiet column of text. */
 main.page {
   display: block;

@@ -405,3 +405,36 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Why:** Picture first, as in lessons 2 and 3, while the sums stay in view where they're
   made. Naming each cube by its fixed coordinate is the closed form's C(4, 3)·2 = 8 made
   visible.
+
+## 2026-10-30: Lesson 5, turning
+
+- **Question:** Where does the square turn from, what range does the angle slider cover,
+  and how is "row times column" taught?
+- **Choice:** The square turns about its corner (0, 0), keeping the true 0/1 coordinates,
+  so (1, 0) is a corner to follow. The xy slider runs from 0 to 2π and snaps onto exact
+  multiples of π/4 (named π/4, π/2, …), so at π/2 the corner lands on exactly (0, 1). The
+  matrix is multiplied out one row per step: row 1 gives x′, then row 2 gives y′.
+- **Why:** The user's choices. The same coordinates as lessons 2–4; exact values make the
+  check's answer readable on the slider; one row at a time keeps each product on its own.
+
+## 2026-10-30: Lesson 5 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 5 needed that the outline and the choices above left open.
+- **Choice:**
+  - Eight steps: 1D (a flip isn't a turn), the square and radians, the check, (1, 0) and
+    (0, 1) defining cos θ and sin θ, the formula from (1, 1), row 1, row 2, the sandbox.
+  - The check comes before cos and sin are named, with θ back at 0 and no slider, so the
+    quarter turn is predicted from the picture alone; its two prompts are x′ and y′.
+  - cos θ and sin θ are defined as where (1, 0) lands, since the learner may not know
+    trigonometry. The formula is then derived: (x, y) is x steps along x plus y along y,
+    and (0, 1) goes to (−sin θ, cos θ). The formula and matrix steps follow (1, 1), the
+    corner that needs both terms.
+  - The followed corners are labelled with their coordinates and draw their path as a
+    faint arc; the starting square stays faint behind. The sandbox labels every corner
+    but draws no paths, which would crowd the square.
+  - A second view, "Numbers", shows the angle (its name, the decimal, the fraction of a
+    full turn), then the worked formula, then the matrix times the column with the row
+    being multiplied bright and the other dim; in the sandbox, the matrix and each
+    corner's old → new coordinates.
+- **Why:** Predict before naming keeps the check honest; deriving the formula from two
+  corners shows *why* it holds rather than stating it.
