@@ -6,10 +6,10 @@
 // so the shadows nest.
 
 import type { Lesson } from "./lesson.ts";
-import { AXES, apply, projectW, rotation, type Plane, type Vec4 } from "./math4d.ts";
+import { apply, projectW, rotation, type Plane, type Vec4 } from "./math4d.ts";
 import { corner } from "./planes.ts";
 import { createLineView, css, tint, W_DISTANCE } from "./render.ts";
-import { byLength, cast, cube, extent } from "./shadow.ts";
+import { byLength, cast, cube, extent, inPiece, pieceName } from "./shadow.ts";
 import { angleName, snapAngle } from "./turn.ts";
 import { addSlider, bracket, coords, num, span } from "./ui.ts";
 
@@ -54,10 +54,6 @@ const LIT_FILL = 0.1;
 const GHOST = 0.12;
 
 const TESSERACT = cube(4);
-// The tesseract's 8 cubes, each holding one coordinate at −1 or +1: cube c holds
-// coordinate c >> 1 at bit c & 1.
-const inCell = (c: number, i: number) => ((i >> (c >> 1)) & 1) === (c & 1);
-const cellName = (c: number) => `${AXES[c >> 1]} = ${c & 1 ? "+1" : "−1"}`;
 // The two corners the formula step follows: near (1, 1, 1, 1) and far (1, 1, 1, −1).
 const FOLLOW = [15, 7];
 
@@ -198,7 +194,7 @@ export const lesson7: Lesson = {
         }
       }
       if (panel === "distort") {
-        line(`cube ${cell + 1} of 8: ${cellName(cell)}`);
+        line(`cube ${cell + 1} of 8: ${pieceName(cell)}`);
         line("every edge: 2 long");
         const names = ["joining", "inner", "outer"];
         byLength(TESSERACT.edges.map(([a, b]) => Math.hypot(...[0, 1, 2].map((k) => shadows[a]![k]! - shadows[b]![k]!)))).forEach(({ length, count }, k) =>
@@ -224,7 +220,7 @@ export const lesson7: Lesson = {
         if (rung === 4) {
           const turned = TESSERACT.vertices.map((v) => apply(m, v));
           const lit = panel === "distort";
-          const inLit = (corners: number[]) => corners.every((i) => inCell(cell, i));
+          const inLit = (corners: number[]) => corners.every((i) => inPiece(cell, i));
           view.draw(
             TESSERACT.edges.map(([a, b]) => ({ from: turned[a]!, to: turned[b]!, alpha: !lit || inLit([a, b]) ? EDGE_ALPHA : GHOST })),
             TESSERACT.faces.map((face) => ({ corners: face.map((i) => turned[i]!), alpha: lit && inLit(face) ? LIT_FILL : FACE_ALPHA })),
