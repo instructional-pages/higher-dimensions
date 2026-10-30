@@ -192,8 +192,9 @@ export function createNetView(canvas: HTMLCanvasElement): NetView | null {
 }
 
 export interface LineView {
-  // Each segment's shadow, at its own brightness from 0 to 1.
-  draw(segments: { from: Vec4; to: Vec4; alpha: number }[]): void;
+  // Each segment's shadow, and each flat polygon's (corners in order around it), at its
+  // own brightness from 0 to 1.
+  draw(segments: { from: Vec4; to: Vec4; alpha: number }[], faces?: { corners: Vec4[]; alpha: number }[]): void;
   // Where a 4D point's shadow lands on the canvas, in CSS pixels.
   screen(v: Vec4): [number, number];
 }
@@ -202,9 +203,12 @@ export function createLineView(canvas: HTMLCanvasElement): LineView | null {
   const view = createView(canvas, SHAPE_DISTANCE);
   if (!view) return null;
   return {
-    draw(segments) {
+    draw(segments, faces = []) {
       const lines = segments.flatMap(({ from, to, alpha }) => [...shadow(from), alpha, ...shadow(to), alpha]);
-      view.draw([], lines, false);
+      const triangles = faces.flatMap(({ corners, alpha }) =>
+        corners.slice(1, -1).flatMap((_, k) => [corners[0]!, corners[k + 1]!, corners[k + 2]!].flatMap((c) => [...shadow(c), alpha])),
+      );
+      view.draw(triangles, lines, false);
     },
     screen: (v) => view.screen(projectW(v, W_DISTANCE)),
   };

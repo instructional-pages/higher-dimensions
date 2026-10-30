@@ -4,6 +4,21 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.8.0] - 2026-10-30
+
+### Added
+
+- Lesson 4, "Squares, cubes and beyond": the same rule counts pieces of every size. On
+  each rung, the old copy, the new copy and the swept pieces now fill a row of corners,
+  edges, squares and cubes (4D: 6 + 6 + 12 = 24 squares, 1 + 1 + 6 = 8 cubes), and the
+  swept squares are filled in the picture. Predict the tesseract's squares and cubes, then
+  a 5D cube's corners, edges and squares with no picture, which leads to the closed form
+  C(n, k)·2ⁿ⁻ᵏ. Ends in a sandbox that steps through the tesseract's 8 cubes.
+
+### Changed
+
+- Check labels get as much room as the longest one needs, so "4D corners" no longer wraps.
+
 ## [0.7.1] - 2026-10-28
 
 ### Changed

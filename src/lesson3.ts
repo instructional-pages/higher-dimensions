@@ -2,7 +2,7 @@
 // is lesson 2's old copy, new copy and connecting edges; lighting a group up adds it to
 // that rung's row of the count table, so the row's sums are the recurrence itself.
 
-import { GROUPS, tally } from "./count.ts";
+import { GROUPS, tally, written } from "./count.ts";
 import { dashes, extrude, type Group } from "./extrude.ts";
 import type { Lesson } from "./lesson.ts";
 import type { Vec4 } from "./math4d.ts";
@@ -125,9 +125,9 @@ export const lesson3: Lesson = {
         // Rungs below this one are complete, this one has what's counted, later ones wait.
         table.replaceChildren(span("", "head"), span("corners", "head"), span("edges", "head"));
         for (let n = 0; n <= TOP; n++) {
-          const row = n < rung ? tally(n, new Set(GROUPS)) : n === rung ? tally(n, counted) : { corners: "", edges: "" };
+          const row = n < rung ? tally(n, new Set(GROUPS), 2).map(written) : n === rung ? tally(n, counted, 2).map(written) : ["", ""];
           const state = n === rung ? "now" : n > rung ? "later" : "";
-          table.append(span(`${n}D`, `rung ${state}`), span(row.corners, state), span(row.edges, state));
+          table.append(span(`${n}D`, `rung ${state}`), ...row.map((cell) => span(cell, state)));
         }
         if (buttons) for (const g of GROUPS) buttons[g].ariaPressed = String(lit === g);
       });

@@ -5,6 +5,7 @@ import { mountLesson, type Lesson } from "./lesson.ts";
 import { lesson1 } from "./lesson1.ts";
 import { lesson2 } from "./lesson2.ts";
 import { lesson3 } from "./lesson3.ts";
+import { lesson4 } from "./lesson4.ts";
 import { parseRoute } from "./route.ts";
 import { mountSandbox } from "./sandbox.ts";
 
@@ -23,7 +24,7 @@ const TITLES = [
   "Everything linked",
 ];
 // The lessons built so far, in order.
-const LESSONS: Lesson[] = [lesson1, lesson2, lesson3];
+const LESSONS: Lesson[] = [lesson1, lesson2, lesson3, lesson4];
 const COURSE = "Higher Dimensions";
 
 const root = document.querySelector("main")!;
