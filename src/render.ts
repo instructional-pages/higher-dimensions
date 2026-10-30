@@ -226,7 +226,10 @@ function wireframe(shape: Shape, placed: Vec4[]) {
 }
 
 export interface SliceView {
+  // `h` tints the slice, as the w it lies at.
   draw(cut: Slice, h: number): void;
+  // Where a slice point lands on the canvas, in CSS pixels.
+  screen(p: Vec3): [number, number];
 }
 
 export function createSliceView(canvas: HTMLCanvasElement): SliceView | null {
@@ -246,6 +249,7 @@ export function createSliceView(canvas: HTMLCanvasElement): SliceView | null {
       const lines = cut.edges.flatMap(([a, b]) => [...cut.points[a]!, h, EDGE_ALPHA, ...cut.points[b]!, h, EDGE_ALPHA]);
       view.draw(triangles, lines, true);
     },
+    screen: (p) => view.screen(p),
   };
 }
 
