@@ -6,6 +6,21 @@ export const span = (text: string, className = "") => Object.assign(document.cre
 // +0 turns −0.00 into 0.00.
 export const fixed = (x: number) => (Math.round(x * 100) / 100 + 0).toFixed(2);
 
+// Two places, whole numbers bare, with a true minus sign.
+export const num = (x: number) => fixed(x).replace(/\.00$/, "").replace("-", "−");
+
+// The first `n` coordinates of a point, as "(x, y, …)".
+export const coords = (v: number[], n: number) => `(${v.slice(0, n).map(num).join(", ")})`;
+
+// A matrix or column as a grid between two thin brackets, `rows` of entries; those
+// `dim(r, c)` picks out are dimmed.
+export function bracket(rows: string[][], dim: (r: number, c: number) => boolean = () => false) {
+  const grid = Object.assign(document.createElement("div"), { className: "bracket" });
+  grid.style.setProperty("--columns", String(rows[0]!.length));
+  rows.forEach((cells, r) => grid.append(...cells.map((t, c) => span(t, dim(r, c) ? "dim" : ""))));
+  return grid;
+}
+
 // A labelled slider row, moving in steps of `step`; `onInput` receives each new value,
 // `show` writes it out. Returns the input.
 export function addSlider(

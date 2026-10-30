@@ -48,3 +48,9 @@ test("the arc runs from the corner to its turned place, staying at its distance"
     ],
   ]);
 });
+
+test("an arc in another plane turns the corner toward that plane's second axis", () => {
+  const path = arc(Math.PI / 2, [1, 0, 0, 0], 4, "xz");
+  near(path[3]![1], [0, 0, 1, 0]);
+  path.forEach(([a]) => assert.equal(a[1], 0));
+});

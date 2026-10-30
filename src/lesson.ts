@@ -4,12 +4,12 @@
 // the learner to finish something in the views. The lesson itself draws the views and
 // puts each step's sliders in place.
 
-import { canReveal, isRight } from "./check.ts";
+import { canReveal, isRight, type Prompt } from "./check.ts";
 import { figure, linkViews, type ViewSpec } from "./ui.ts";
 
 export interface Check {
-  // One typed number per prompt, e.g. "4D".
-  prompts: { label: string; answer: number }[];
+  // One typed number or picked choice per prompt, e.g. "4D".
+  prompts: Prompt[];
   // Shown on reveal, HTML.
   after: string;
 }
@@ -89,28 +89,47 @@ export function mountLesson(root: HTMLElement, n: number, lesson: Lesson, next: 
 }
 
 // Fills `box` with the check's prompts and a Reveal button, enabled once every prompt
-// has a number. Revealing marks each prediction and calls `revealed`.
+// has a number or a pick. Revealing marks each prediction and calls `revealed`.
 function showCheck(box: HTMLElement, check: Check | undefined, revealed: () => void) {
   box.replaceChildren();
   if (!check) return;
-  const inputs = check.prompts.map(({ label }) => {
-    const row = document.createElement("label");
-    const input = Object.assign(document.createElement("input"), { type: "text", inputMode: "decimal", autocomplete: "off" });
-    row.append(label, input, document.createElement("output"));
-    box.append(row);
-    return input;
-  });
   const reveal = Object.assign(document.createElement("button"), { type: "button", textContent: "Reveal", disabled: true });
+  const values = check.prompts.map(() => "");
+  const update = () => (reveal.disabled = !canReveal(check.prompts, values));
+  // Each prompt's row, and how to lock it once revealed.
+  const rows = check.prompts.map((prompt, k) => {
+    if ("choices" in prompt) {
+      const row = Object.assign(document.createElement("div"), { className: "prompt", role: "group", ariaLabel: prompt.label });
+      const choices = Object.assign(document.createElement("div"), { className: "choices" });
+      const buttons = prompt.choices.map((choice) => {
+        const button = Object.assign(document.createElement("button"), { type: "button", textContent: choice });
+        button.ariaPressed = "false";
+        button.addEventListener("click", () => {
+          values[k] = choice;
+          for (const b of buttons) b.ariaPressed = String(b === button);
+          update();
+        });
+        return button;
+      });
+      choices.append(...buttons);
+      row.append(prompt.label, choices, document.createElement("output"));
+      return { row, lock: (): void => buttons.forEach((b) => (b.disabled = b.ariaPressed !== "true")) };
+    }
+    const row = Object.assign(document.createElement("label"), { className: "prompt" });
+    const input = Object.assign(document.createElement("input"), { type: "text", inputMode: "decimal", autocomplete: "off" });
+    input.addEventListener("input", () => ((values[k] = input.value), update()));
+    row.append(prompt.label, input, document.createElement("output"));
+    return { row, lock: (): void => void (input.readOnly = true) };
+  });
   const after = Object.assign(document.createElement("p"), { innerHTML: check.after, hidden: true });
-  box.append(reveal, after);
-  for (const input of inputs) input.addEventListener("input", () => (reveal.disabled = !canReveal(inputs.map((i) => i.value))));
+  box.append(...rows.map(({ row }) => row), reveal, after);
   reveal.addEventListener("click", () => {
-    check.prompts.forEach(({ answer }, k) => {
-      const input = inputs[k]!;
-      const right = isRight(input.value, answer);
-      input.readOnly = true;
-      input.nextElementSibling!.textContent = right ? "right" : `it's ${answer}`;
-      input.parentElement!.classList.add(right ? "right" : "wrong");
+    check.prompts.forEach((prompt, k) => {
+      const { row, lock } = rows[k]!;
+      const right = isRight(prompt, values[k]!);
+      lock();
+      row.querySelector("output")!.textContent = right ? "right" : `it's ${prompt.answer}`;
+      row.classList.add(right ? "right" : "wrong");
     });
     reveal.remove();
     after.hidden = false;
