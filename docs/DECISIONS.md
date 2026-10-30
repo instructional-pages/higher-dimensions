@@ -469,3 +469,43 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Why:** The same corner and coordinates as lesson 5 keep the new idea, the third
   direction, the only change. Holding the swap step until it's tried makes the learner see
   both results rather than read about them.
+
+## 2026-10-30: Lesson 7's shapes, view and comparison
+
+- **Question:** The earlier lessons keep shapes at true 0/1 coordinates, which makes the
+  perspective shadow a lopsided cube-in-a-cube sharing the origin's corner. Where do lesson
+  7's shapes sit? What does the view show on the lower rungs? How are the cube's
+  straight-on and perspective shadows compared?
+- **Choice:**
+  - The shapes are centred, corners at ±1, so the shadows nest: a square centred in a
+    square, and a cube centred in a cube with the far one (w = −1) cool inside.
+  - The lower rungs show the shape, a faint screen one dimension down just behind it, its
+    shadow on the screen, and faint rays (parallel straight on, from the viewer in
+    perspective). At 4D only the shadow is drawn, and the text says why.
+  - A Perspective / Straight on toggle, like lesson 6's Swap order; Next waits for one
+    switch.
+- **Why:** The user's choices. Nesting is the picture the outline promises; seeing what
+  casts each lower shadow makes the missing 4D shape the one new thing.
+
+## 2026-10-30: Lesson 7 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 7 needed that the outline and the choices above left open.
+- **Choice:**
+  - Eight steps: the segment's point, the turning square's segment (xy slider, length 2 to
+    2√2), the cube with the toggle, the check, the tesseract's shadow, the formula, the
+    distortion, the sandbox.
+  - The lower screens stand at −1.5 along the direction cast across; the cube's
+    perspective viewer is at z = 3, the same distance as the tesseract's viewer along w,
+    so the near face's shadow is twice the far one's, as for the tesseract's two cubes.
+  - The check is a pick of three: one cube, a cube in a cube, a square in a square. It
+    shows the cube's perspective shadow while the learner predicts.
+  - The formula step labels the near corner (1, 1, 1, 1) and the far (1, 1, 1, −1) with
+    their shadows (1.5, 1.5, 1.5) and (0.75, 0.75, 0.75); the Numbers view works each
+    scale.
+  - The distortion step has a cube slider (1 to 8): that cube's edges bright and faces
+    filled, the rest a ghost; Numbers names it (x = +1, …) and lists the edge lengths in
+    the shadow: 8 joining 1.30, 12 inner 1.5, 12 outer 3.
+  - The sandbox shows the 3×3 matrix of the xy, xz and yz turns, noting that w, and so
+    each corner's scale, doesn't change.
+- **Why:** The same viewer distance at every rung makes the cube's square-in-a-square
+  the exact lower-rung picture of the tesseract's cube-in-a-cube.
