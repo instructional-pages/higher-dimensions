@@ -373,3 +373,35 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Choice:** No. The repo, folder and package are `higher-dimensions`, and the course is titled
   "Higher Dimensions".
 - **Why:** The user asked for the shorter name.
+
+## 2026-10-30: Lesson 4, pacing
+
+- **Question:** How does the learner fill in the new squares and cubes columns?
+- **Choice:** Per rung, all columns at once: lesson 3's three buttons (old copy, new copy,
+  swept pieces), one step per rung from 1D to 4D, each button adding its pieces to every
+  column.
+- **Why:** The same mechanic as lesson 3, and the swept term of each column is visibly the
+  column to its left one row up. User's choice.
+
+## 2026-10-30: Lesson 4 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 4 needed that the outline and the choice above left open.
+- **Choice:**
+  - Nine steps: the point (its row filled), 1D, 2D, 3D, the 4D check (squares, cubes),
+    4D, the 5D check (which introduces F(n, k) and the recurrence), the closed form, and
+    the sandbox.
+  - The shadow stays the main view. Four columns of sums don't fit the small view, so
+    there the count shows only totals (the sums appear when it is made main), and the row
+    being counted is written out as sums under the group buttons.
+  - Pieces bigger than the shape read 0 from the start, like the point's row; corners
+    have no swept term, as in lesson 3.
+  - Lit pieces draw their edges bright and their squares filled; unlit, squares are very
+    faint, as everywhere else. The swept pieces light up as their dashed edges plus the
+    swept squares; swept cubes are named in the text, not drawn.
+  - The closed form is taught on the tesseract's squares, with C(4, 2) listed out (xy, xz,
+    xw, yz, yw, zw) and computed as (4·3) / (2·1).
+  - The sandbox's slider picks one of the 8 cubes, named by the coordinate it holds
+    (x = 0 … w = 1); there are no group buttons there.
+- **Why:** Picture first, as in lessons 2 and 3, while the sums stay in view where they're
+  made. Naming each cube by its fixed coordinate is the closed form's C(4, 3)·2 = 8 made
+  visible.

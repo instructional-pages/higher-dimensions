@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { dashes, extrude } from "./extrude.ts";
 
 test("rung 0 is a lone point", () => {
-  assert.deepEqual(extrude(0, 0.5), { corners: [[0, 0, 0, 0]], edges: [] });
+  assert.deepEqual(extrude(0, 0.5), { corners: [[0, 0, 0, 0]], edges: [], faces: [] });
 });
 
 test("rung 1 drags the point out along x into a segment", () => {
@@ -13,6 +13,7 @@ test("rung 1 drags the point out along x into a segment", () => {
       [0.25, 0, 0, 0],
     ],
     edges: [{ a: 0, b: 1, group: "link" }],
+    faces: [],
   });
 });
 
@@ -49,6 +50,28 @@ test("fully extruded, rung n is the n-cube: 2^n corners of 0s and 1s, each edge 
       assert.equal(differing.length, 1);
     }
   }
+});
+
+test("its squares are the n-cube's: 4 corners going round, spanning 2 coordinates", () => {
+  for (const [rung, squares] of [
+    [2, 1],
+    [3, 6],
+    [4, 24],
+  ] as const) {
+    const shape = extrude(rung, 1);
+    assert.equal(shape.faces.length, squares);
+    assert.equal(new Set(shape.faces.map((f) => [...f.corners].sort().join())).size, squares);
+    for (const { corners } of shape.faces) {
+      const [p, q, r, s] = corners.map((i) => shape.corners[i]!);
+      const steps = [[p, q], [q, r], [r, s], [s, p]].map(([a, b]) => a!.filter((x, k) => x !== b![k]).length);
+      assert.deepEqual(steps, [1, 1, 1, 1]);
+      assert.equal(p!.filter((x, k) => x !== r![k]).length, 2);
+    }
+  }
+});
+
+test("the square swept from the segment is one square joining it to its copy", () => {
+  assert.deepEqual(extrude(2, 1).faces, [{ corners: [0, 1, 3, 2], group: "link" }]);
 });
 
 test("at 4D the new copy is the cube moved t along w, joined corner to corner", () => {

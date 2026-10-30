@@ -256,16 +256,26 @@ h1 {
   line-height: 1.6;
 }
 
+/* Each prompt is a row of the check's grid, so the inputs line up under the longest
+   label. */
 .check {
   margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: max-content 3.5rem 1fr;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.check > * {
+  grid-column: 1 / -1;
+  justify-self: start;
 }
 
 .check label {
   display: grid;
-  grid-template-columns: 2rem 4rem 1fr;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: 0.75rem;
-  margin: 0.75rem 0;
+  justify-self: stretch;
 }
 
 .check output {
@@ -419,14 +429,15 @@ figure:not(.main) .corners {
   opacity: 0.2;
 }
 
-/* Lesson 3's count: one row per rung, the sums so far in this rung's row. */
+/* Lessons 3 and 4's count: one row per rung, the sums so far in this rung's row; a
+   column per piece size, plus the rung's. */
 .count {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(var(--columns, 3), auto);
   gap: 0.6em 2em;
   font-size: 1rem;
   font-variant-numeric: tabular-nums;
@@ -453,6 +464,25 @@ figure:not(.main) .count {
 
 .count .rung.now {
   color: var(--text);
+}
+
+/* Lesson 4's count is too wide for the small view, which shows only the totals; the row
+   being counted is written out under the group buttons instead. */
+figure:not(.main) .count .sum {
+  display: none;
+}
+
+.sums {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1rem;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sums .head {
+  color: var(--muted);
 }
 
 /* The groups to light up, one button each; a counted one keeps a brighter border. */
