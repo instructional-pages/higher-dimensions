@@ -261,7 +261,7 @@ h1 {
 .check {
   margin: 1.5rem 0;
   display: grid;
-  grid-template-columns: max-content 3.5rem 1fr;
+  grid-template-columns: max-content auto 1fr;
   gap: 0.75rem;
   align-items: center;
 }
@@ -271,7 +271,7 @@ h1 {
   justify-self: start;
 }
 
-.check label {
+.check .prompt {
   display: grid;
   grid-template-columns: subgrid;
   align-items: center;
@@ -281,6 +281,24 @@ h1 {
 .check output {
   color: var(--muted);
   font-size: 0.875rem;
+}
+
+/* A prompt answered by picking: its choices in a row, the picked one bordered bright. */
+.check .choices {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.choices button {
+  padding: 0.25rem 0.75rem;
+}
+
+.choices button[aria-pressed="true"] {
+  border-color: var(--text);
+}
+
+.choices button[aria-pressed="true"]:disabled {
+  color: var(--text);
 }
 
 .check .right output {
@@ -303,7 +321,7 @@ button {
 }
 
 input[type="text"] {
-  width: 100%;
+  width: 3.5rem;
   box-sizing: border-box;
   padding: 0.25rem 0.5rem;
   font-variant-numeric: tabular-nums;
@@ -571,6 +589,35 @@ figure:not(.main) .numbers {
 
 .turned span:nth-child(3n + 2) {
   color: var(--muted);
+}
+
+/* Lesson 6's planes per rung: the rung, its planes, their count. */
+.numbers .ladder {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0.5em 1.5em;
+}
+
+/* Side by side: lesson 6's three plane matrices, or its two orders, each a column. */
+.numbers .three,
+.numbers .orders {
+  display: flex;
+  gap: 2em;
+}
+
+.three > div,
+.orders > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+
+/* The order not being drawn bright. */
+.orders > .dim,
+.orders > .dim .bracket {
+  color: var(--muted);
+  border-color: var(--faint);
 }
 
 /* A formula set apart in the step text. */

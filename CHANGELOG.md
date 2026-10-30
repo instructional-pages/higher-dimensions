@@ -4,6 +4,20 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.10.0] - 2026-10-30
+
+### Added
+
+- Lesson 6, "Planes, not axes": a turn happens in a plane, and the "axis" is only what it
+  leaves still. Count the planes up the rungs (0, 0, 1, 3, then predict 4D's 6), see each
+  3D turn's matrix as lesson 5's 2×2 block in two rows and columns of the 3×3 identity,
+  and combine the xy, xz and yz sliders as M = yz · xz · xy. Predict whether turning by
+  π/2 in xy then xz gives the same cube as the other order, then swap the order and watch
+  the corner (1, 0, 0) land on (0, 1, 0) one way and (0, 0, 1) the other, with both
+  products side by side. Ends in a sandbox with the cube, three sliders and the 3×3 matrix.
+- Checks can ask the learner to pick one answer (x, y or z; yes or no) as well as to type
+  a number.
+
 ## [0.9.0] - 2026-10-30
 
 ### Added

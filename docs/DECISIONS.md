@@ -438,3 +438,34 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
     corner's old → new coordinates.
 - **Why:** Predict before naming keeps the check honest; deriving the formula from two
   corners shows *why* it holds rather than stating it.
+
+## 2026-10-30: Checks with a picked answer
+
+- **Question:** Lesson 6's checks "which coordinate does xz leave unchanged?" (y) and
+  "same cube either order?" (no) have no number answer. How does the learner answer them?
+- **Choice:** A check prompt can offer choices instead of a text box: a row of buttons
+  (x, y, z; yes, no), one picked before Reveal, marked like a typed answer. Typed numbers
+  stay the default.
+- **Why:** The user's choice. The organization's rules already allow "pick an outcome", the
+  prediction is still committed before the answer shows, and later lessons can reuse it.
+
+## 2026-10-30: Lesson 6 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 6 needed that the outline and the choice above left open.
+- **Choice:**
+  - Ten steps: the cube turning in xy (z stays), the plane count for 0D to 3D, the 4D
+    check (6), the xy matrix as a block in the 3×3 identity, the xz check (y), the three
+    planes' matrices side by side, the combined M = yz · xz · xy times (1, 0, 0), the
+    order check, the swap step, the sandbox.
+  - The cube turns about its corner (0, 0, 0) at its true 0/1 coordinates, like the square
+    in lesson 5, with the starting cube faint behind it. Only (1, 0, 0) is labelled after
+    the first step (which also labels (0, 0, 1), to show z staying put).
+  - In each plane's matrix the 2×2 block is bright and the identity's entries dim.
+  - Each step resets the planes it doesn't use to 0, so going Back shows only what that
+    step talks about; the checks have no sliders.
+  - The swap step fixes both angles at π/2 and has a Swap order button; Next waits for one
+    swap. The order being drawn is bright (cube, path of (1, 0, 0) as its two arcs, its
+    column in Numbers), the other order faint, so both results stay in view.
+- **Why:** The same corner and coordinates as lesson 5 keep the new idea, the third
+  direction, the only change. Holding the swap step until it's tried makes the learner see
+  both results rather than read about them.

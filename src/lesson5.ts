@@ -7,7 +7,7 @@ import type { Lesson } from "./lesson.ts";
 import { AXES, type Vec4 } from "./math4d.ts";
 import { createLineView, css, tint } from "./render.ts";
 import { angleName, arc, snapAngle, turn } from "./turn.ts";
-import { addSlider, fixed, span } from "./ui.ts";
+import { addSlider, bracket, coords, fixed, num, span } from "./ui.ts";
 
 // What the numbers view shows on a step.
 type Panel = "none" | "angle" | "corners" | "formula" | "matrix" | "sandbox";
@@ -45,9 +45,7 @@ const START_ALPHA = 0.25;
 const PATH_ALPHA = 0.5;
 const PATH_PIECES = 48;
 
-// Two places, whole numbers bare, with a true minus sign.
-const num = (x: number) => fixed(x).replace(/\.00$/, "").replace("-", "−");
-const pair = ([x, y]: Vec4) => `(${num(x)}, ${num(y)})`;
+const pair = (v: Vec4) => coords(v, 2);
 // A factor that may be negative, bracketed when it is.
 const factor = (x: number) => (num(x).startsWith("−") ? `(${num(x)})` : num(x));
 
@@ -148,13 +146,8 @@ export const lesson5: Lesson = {
         line(`θ = ${name}${name.includes("π") ? ` ≈ ${theta.toFixed(2)}` : ""}`);
         numbers.appendChild(span(`${fixed(theta / (2 * Math.PI))} of a full turn`, "note"));
       };
-      // A bracketed column of rows; row `lit` (if any) bright, the others dim.
-      const bracket = (rows: string[][], lit?: number) => {
-        const grid = Object.assign(document.createElement("div"), { className: "bracket" });
-        grid.style.setProperty("--columns", String(rows[0]!.length));
-        rows.forEach((cells, r) => grid.append(...cells.map((t) => span(t, lit !== undefined && r !== lit ? "dim" : ""))));
-        return grid;
-      };
+      // Row `lit` (if any) bright, the others dim.
+      const unlit = (r: number) => row !== undefined && r !== row;
       const matrix = [
         [num(c), num(-s)],
         [num(s), num(c)],
@@ -178,7 +171,7 @@ export const lesson5: Lesson = {
       if (panel === "matrix") {
         angle();
         const product = numbers.appendChild(Object.assign(document.createElement("div"), { className: "product" }));
-        product.append(bracket(matrix, row), bracket([[num(x)], [num(y)]]), span("="), bracket([[num(nx)], [num(ny)]], row));
+        product.append(bracket(matrix, unlit), bracket([[num(x)], [num(y)]]), span("="), bracket([[num(nx)], [num(ny)]], unlit));
         const [name, a, b, value] = row === 0 ? ["x′", c, -s, nx] : ["y′", s, c, ny];
         const [sa, sb] = row === 0 ? ["cos θ", "(−sin θ)"] : ["sin θ", "cos θ"];
         line(`${name} = ${sa}·x + ${sb}·y`);

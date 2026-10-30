@@ -1,7 +1,7 @@
 // Lesson 5's turning in the xy plane: the angle slider snaps to multiples of π/4 and
 // names them, and a turned corner's path is an arc about the origin.
 
-import { apply, planeRotation, type Vec4 } from "./math4d.ts";
+import { apply, planeRotation, type Plane, type Vec4 } from "./math4d.ts";
 
 const EIGHTH = Math.PI / 4;
 // How close the slider must come to a multiple of π/4 to land on it exactly.
@@ -27,8 +27,8 @@ export function angleName(theta: number): string {
 // `v` turned by θ in xy.
 export const turn = (theta: number, v: Vec4): Vec4 => apply(planeRotation("xy", theta), v);
 
-// The path `v` takes as it turns from 0 to θ, as `pieces` segments.
-export function arc(theta: number, v: Vec4, pieces: number): [Vec4, Vec4][] {
-  const at = (i: number) => turn((theta * i) / pieces, v);
+// The path `v` takes as it turns from 0 to θ in `plane`, as `pieces` segments.
+export function arc(theta: number, v: Vec4, pieces: number, plane: Plane = "xy"): [Vec4, Vec4][] {
+  const at = (i: number) => apply(planeRotation(plane, (theta * i) / pieces), v);
   return [...Array(pieces).keys()].map((i) => [at(i), at(i + 1)]);
 }
