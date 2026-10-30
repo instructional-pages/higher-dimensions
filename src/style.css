@@ -283,14 +283,17 @@ h1 {
   font-size: 0.875rem;
 }
 
-/* A prompt answered by picking: its choices in a row, the picked one bordered bright. */
+/* A prompt answered by picking: its choices in a row, wrapping when long, the picked one
+   bordered bright. */
 .check .choices {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
 .choices button {
   padding: 0.25rem 0.75rem;
+  white-space: nowrap;
 }
 
 .choices button[aria-pressed="true"] {

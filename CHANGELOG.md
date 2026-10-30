@@ -4,6 +4,21 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.11.0] - 2026-10-30
+
+### Added
+
+- Lesson 7, "Shadows": to see a shape from one dimension up, look at its shadow one
+  dimension down. A segment casts a single point; a square casts a segment on a line that
+  grows and shrinks as it turns; a face-on cube casts one square straight on, or a square
+  inside a square in perspective, with a toggle to compare them. Predict the tesseract's
+  shadow along w, then see the cube inside a cube, the far cube (w = −1) cool inside and
+  the near one (w = 1) warm outside. Work the scale d / (d − w) on two corners, then see
+  what the shadow distorts: 32 edges of length 2 cast at 1.5, 3 and about 1.3, and 8
+  identical cubes, stepped through one at a time, most squashed into boxes. Ends in a
+  sandbox turning the tesseract's shadow in xy, xz and yz with the 3×3 matrix.
+- Check choices wrap onto more lines when they are long.
+
 ## [0.10.0] - 2026-10-30
 
 ### Added
