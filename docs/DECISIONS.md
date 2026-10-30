@@ -509,3 +509,35 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
     each corner's scale, doesn't change.
 - **Why:** The same viewer distance at every rung makes the cube's square-in-a-square
   the exact lower-rung picture of the tesseract's cube-in-a-cube.
+
+## 2026-10-30: Lesson 8's shapes and lower rungs
+
+- **Question:** Where do lesson 8's shapes sit, how are the lower rungs' shadows cast, and
+  what do those rungs show?
+- **Choice:** Centred shapes, corners at ±1, as in lesson 7. Every rung's shadow is in
+  perspective from a viewer at 3, like the tesseract's along w. The lower rungs show the
+  turning shape, its screen, the rays and the shadow, with a Shadow only toggle that leaves
+  just what the viewer one dimension down sees.
+- **Why:** The user's choices. Perspective at every rung makes the square's and the cube's
+  inside-out turn the exact lower-rung picture of the tesseract's; the toggle keeps the
+  shape for understanding and still shows the lower viewer's view.
+
+## 2026-10-30: Lesson 8 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 8 needed that the outline and the choices above left open.
+- **Choice:**
+  - Nine steps: the square in xy, the cube in xz, the tesseract in xw (Next waits until
+    xw reaches π/2), the 4×4 matrix with the block in x and w, the π/2 check, the turn at
+    π/2 (starting there, with the matrix times (1, 0, 0, 0)), the 2π check, yw and zw
+    with their three matrices side by side, the sandbox with all six.
+  - Every rung lights its x = +1 piece (side, face, cube): its edges bright, its faces
+    filled, the rest dimmer, labelled "x = +1". Turning x toward the viewer brings that
+    piece outside at every rung, the answer to the first check. On the line, dots mark
+    the side's shadow ends, since it lies over the rest. The yw/zw and sandbox steps light
+    nothing.
+  - The Numbers view names the piece that is outside (the one whose centre is nearest the
+    viewer, two when they tie), live as the sliders move.
+  - Checks are picks of three: "x = +1", "x = −1", "w = +1, it stays"; and "back where it
+    started", "turned inside out", "mirrored in x".
+- **Why:** One bright piece followed up the ladder makes "which cube ends up outside" a
+  question the lower rungs have already answered by analogy.

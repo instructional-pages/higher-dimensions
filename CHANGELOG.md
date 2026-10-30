@@ -4,6 +4,20 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.12.0] - 2026-10-30
+
+### Added
+
+- Lesson 8, "Turning into w": the new 4D motion. Turn a shape toward the viewer one
+  dimension up and its perspective shadow seems to turn inside out. A square turns in xy,
+  seen as its shadow on a line; a cube turns in xz, seen as its shadow on a screen; each
+  has a Shadow only toggle to see just what the lower viewer sees. Then the tesseract
+  turns in xw, and its bright x = +1 cube grows from the box on the side into the outer
+  cube, warming as it trades x for w. See the 4×4 matrix as lesson 5's 2×2 block in the x
+  and w rows and columns, predict which cube ends up outside at π/2 and where everything
+  is after 2π, then add yw and zw. Ends in a sandbox with all six planes and the live 4×4
+  matrix, naming the cube that is outside.
+
 ## [0.11.0] - 2026-10-30
 
 ### Added

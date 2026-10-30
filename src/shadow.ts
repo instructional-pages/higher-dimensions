@@ -3,7 +3,7 @@
 // or in perspective from a viewer on the other side, so nearer is bigger. The tesseract's
 // shadow along w is `projectW`'s perspective, with no screen: it is the 3D world itself.
 
-import type { Vec4 } from "./math4d.ts";
+import { AXES, type Mat4, type Vec4 } from "./math4d.ts";
 
 // The n-cube with corners at ±1 in its first n coordinates (the rest 0). Corner i has
 // bit k set when coordinate k is +1, as in `tesseract`, so an edge joins corners that
@@ -43,4 +43,19 @@ export function byLength(lengths: number[]): { length: number; count: number }[]
     else groups.push({ length, count: 1 });
   }
   return groups;
+}
+
+// The n-cube's 2n pieces one dimension down (a square's sides, a cube's faces, the
+// tesseract's cubes), each holding one coordinate at −1 or +1: piece c holds coordinate
+// c >> 1 at bit c & 1, so corner i is in it when that bit of i matches.
+export const inPiece = (c: number, i: number): boolean => ((i >> (c >> 1)) & 1) === (c & 1);
+export const pieceName = (c: number): string => `${AXES[c >> 1]} = ${c & 1 ? "+1" : "−1"}`;
+
+// The n-cube's pieces nearest a viewer along direction `axis` once turned by `m`: the
+// ones whose centre has the largest coordinate there, so they cast the outside of a
+// perspective shadow. Two or more when they tie.
+export function nearest(m: Mat4, n: number, axis: number): number[] {
+  const reach = [...Array(2 * n).keys()].map((c) => m[axis * 4 + (c >> 1)]! * (c & 1 ? 1 : -1));
+  const most = Math.max(...reach);
+  return reach.flatMap((r, c) => (most - r < 1e-9 ? [c] : []));
 }
