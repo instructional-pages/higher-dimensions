@@ -4,6 +4,21 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.13.0] - 2026-10-30
+
+### Added
+
+- Lesson 9, "Slicing": the other way to see a shape one dimension up is to cut it with
+  something flat and keep only the cut. A segment cut by a point gives a point, a square
+  cut by a line a segment, a cube cut by a plane straight on a square. Turned
+  corner-first, the cube's slice grows from a triangle; predict the middle slice (a
+  hexagon), then sweep the whole cube. The tesseract cut by w = h gives a cube straight
+  on; corner-first, a tetrahedron that grows; predict the middle (an octahedron), then see
+  the clipped tetrahedron between. The Slice view appears for the first time, showing the
+  slice alone beside the shape. Numbers shows each corner's height, the levels where the
+  slice changes shape, and the slice's faces. Ends in a sandbox with straight-on,
+  edge-first and corner-first presets, the cut, and xy, xz, yz.
+
 ## [0.12.0] - 2026-10-30
 
 ### Added

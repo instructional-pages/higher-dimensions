@@ -541,3 +541,43 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
     started", "turned inside out", "mirrored in x".
 - **Why:** One bright piece followed up the ladder makes "which cube ends up outside" a
   question the lower rungs have already answered by analogy.
+
+## 2026-10-30: Lesson 9's corner-first and lower rungs
+
+- **Question:** How is corner-first (and edge-first) set up, and what do the lower rungs
+  show?
+- **Choice:** A lead turn points the shape's long diagonal (or, for edge-first, the
+  diagonal across all but one direction) along the last axis, and the cut is still
+  w = h (z = h on the cube, y = h on the square). The lower rungs show the whole shape
+  faint with the slice filled and bright inside it.
+- **Why:** The user's choices. The same slider and the same slice view as lesson 10 and
+  the sandbox, so the cut never becomes a new kind of object; the faint shape shows why a
+  hexagon appears.
+
+## 2026-10-30: Lesson 9 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 9 needed that the outline and the choices above left open.
+- **Choice:**
+  - Three views: Cut (the shape faint, the slice bright inside it; the tesseract as its
+    shadow along w, with no plane to draw), Slice (the slice alone, the slice view's first
+    appearance) and Numbers. The Slice view beside the Cut view stands in for the "Slice
+    only" toggle: it always shows just what the viewer one dimension down sees, and one
+    click makes it the main view.
+  - Eleven steps: segment, square, cube straight on, cube corner-first with the slider
+    stopping at the largest triangle, the hexagon check, the whole cube, tesseract
+    straight on, tesseract corner-first stopping at the largest tetrahedron, the
+    octahedron check, the whole tesseract, the sandbox. Stopping the slider short keeps
+    the middle slice a prediction.
+  - The lead turn is a chain of turns toward the last axis by atan(1/√(k+1)), so a
+    corner's height is the sum of its coordinates over √n (over 2 on the tesseract).
+    Numbers shows that formula and the corner levels, where the slice changes shape; the
+    cut slider snaps to them and to 0.
+  - Numbers names the slice: point, segment, triangle, four-sided, hexagon; on the
+    tesseract its faces by kind ("4 triangles, 4 hexagons"), named tetrahedron, octahedron
+    or box, with its corner, edge and face counts.
+  - Sandbox: presets straight on, edge-first and corner-first (starting corner-first),
+    the cut, and xy, xz, yz applied after the preset, so they turn the slice without
+    changing its shape.
+  - Lower rungs are tinted as w = 0; the tesseract's slice is tinted by its w = h.
+- **Why:** Each choice keeps one cut along one axis through the whole ladder, and makes
+  "each piece the cut crosses gives one side or face" visible in the numbers.
