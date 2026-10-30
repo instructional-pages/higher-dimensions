@@ -4,6 +4,18 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.9.0] - 2026-10-30
+
+### Added
+
+- Lesson 5, "Turning in a plane": why a turn needs a plane (a segment on its line can only
+  flip), then the square turning about its corner (0, 0) by θ in the xy plane, on a radian
+  slider that lands exactly on each eighth of a turn. Predict where (1, 0) goes at π/2,
+  follow it to meet cos θ and sin θ, build x′ = cos θ·x − sin θ·y, y′ = sin θ·x + cos θ·y
+  from the corners (1, 0) and (0, 1), then multiply the 2×2 matrix by a corner's column
+  one row at a time. Ends in a sandbox with the live matrix and every corner's turned
+  coordinates.
+
 ## [0.8.0] - 2026-10-30
 
 ### Added
