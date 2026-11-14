@@ -185,6 +185,10 @@ export interface NetFrame {
 // so its centre is at y = −1.5. It reaches about 6.4 from there, twice the shadow's
 // reach, and the cubes nearest the camera look bigger still.
 export const TESSERACT_NET: NetFrame = { centre: [0, -1.5, 0], distance: 25 };
+// Each rung's frame (lessons 11 and 12): the square's line runs along y = 1 from x = −5 to
+// 3 (4 either side), the cube's cross lies in z = 1 from y = −5 to 3 (about 5 to its far
+// corners).
+export const NET_FRAMES: Record<number, NetFrame> = { 2: { centre: [-1, 1, 0], distance: 16 }, 3: { centre: [0, -1, 1], distance: 19 }, 4: TESSERACT_NET };
 const DIM_EDGE = 0.22;
 const LIT_FACE = 0.09;
 const DIM_FACE = 0.012;

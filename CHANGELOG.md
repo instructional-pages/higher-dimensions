@@ -4,6 +4,19 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.16.0] - 2026-11-14
+
+### Added
+
+- Lesson 12, "Everything linked", the last lesson: the shadow, the slice and the net as
+  three views of one object, beside a Numbers view with the matrix, its bottom row as a
+  formula, the slice and corner A. Any of the four can be the main view. The square,
+  the cube and the tesseract each get their own turns, the cut and the fold, and every
+  slider updates every view. A step sums up what each control moves. Then a final
+  round: predict the slice when xw joins zw (a hexagonal prism running along y), count
+  the 5D cube's corners, edges, squares, cubes and 4D cells, and the 6D cube's edges, with
+  no picture. Ends in the whole tesseract sandbox.
+
 ## [0.15.0] - 2026-11-14
 
 ### Added
