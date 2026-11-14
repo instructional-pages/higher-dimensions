@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { tesseract, type Shape, type Vec4 } from "./math4d.ts";
-import { net } from "./net.ts";
+import { net, order } from "./net.ts";
 
 const round = (v: Vec4) => v.map((x) => Math.round(x * 1e9) / 1e9 + 0);
 const corners = (s: Shape, cell: number[]) => cell.map((i) => round(s.vertices[i]!).join()).sort();
@@ -70,4 +70,54 @@ test("while folding, the cubes leave w = 1 toward −w and stay clear of the vie
   // Half-folded, its far corner is at w = 1 − 2 cos 45° (1 + 2 sin 45°) = −1 − √2.
   const half = net(0.5).vertices.map((v) => v[3]);
   assert.ok(Math.abs(Math.min(...half) - (-Math.SQRT2 - 1)) < 1e-9);
+});
+
+test("flat, the square's net is 4 segments in a line along y = 1, read left to right", () => {
+  const n = net(0, 2);
+  assert.deepEqual([n.cells.length, n.edges.length, n.faces.length], [4, 4, 0]);
+  const spans = order(2).map((c) => box(n, n.cells[c]!).map((end) => end.slice(0, 2)));
+  assert.deepEqual(spans, [
+    [[-5, 1], [-3, 1]], // y = −1, hinged on the far end of x = −1
+    [[-3, 1], [-1, 1]], // x = −1
+    [[-1, 1], [1, 1]], // y = +1, the base
+    [[1, 1], [3, 1]], // x = +1
+  ]);
+});
+
+test("flat, the cube's net is the cross of 6 squares in z = 1, the column read top down", () => {
+  const n = net(0, 3);
+  assert.deepEqual([n.cells.length, n.edges.length, n.faces.length], [6, 24, 6]);
+  const spans = order(3).map((c) => box(n, n.cells[c]!).map((end) => end.slice(0, 3)));
+  assert.deepEqual(spans, [
+    [[-1, 1, 1], [1, 3, 1]], // y = +1, the top
+    [[-1, -1, 1], [1, 1, 1]], // z = +1, the base
+    [[-1, -3, 1], [1, -1, 1]], // y = −1
+    [[-1, -5, 1], [1, -3, 1]], // z = −1
+    [[-3, -1, 1], [-1, 1, 1]], // x = −1
+    [[1, -1, 1], [3, 1, 1]], // x = +1
+  ]);
+});
+
+test("folded, the lower nets are the square's sides and the cube's faces, each side glued to one other piece", () => {
+  for (const d of [2, 3]) {
+    const n = net(1, d);
+    // A piece's sides are its corners (square) or its edges (cube).
+    const sides = d === 2 ? n.vertices.map((v) => round(v).join()) : n.edges.map(([a, b]) => [a, b].map((i) => round(n.vertices[i]!).join()).sort().join(";"));
+    for (const key of sides) assert.equal(sides.filter((k) => k === key).length, 2);
+    for (const v of n.vertices) assert.ok(round(v).every((x, k) => (k < d ? Math.abs(x) === 1 : x === 0)));
+  }
+});
+
+test("the tesseract's cubes in reading order: the column, then the sides", () => {
+  const n = net(0);
+  const centres = order(4).map((c) => [0, 1, 2].map((k) => n.cells[c]!.reduce((s, i) => s + n.vertices[i]![k]!, 0) / 8 + 0));
+  assert.deepEqual(centres, [[0, 2, 0], [0, 0, 0], [0, -2, 0], [0, -4, 0], [-2, 0, 0], [2, 0, 0], [0, 0, -2], [0, 0, 2]]);
+});
+
+test("in each net, the first piece in reading order is opposite the third", () => {
+  for (const d of [2, 3, 4]) {
+    const [first, , third] = order(d);
+    assert.equal(first! >> 1, third! >> 1);
+    assert.notEqual(first, third);
+  }
 });

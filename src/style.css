@@ -112,6 +112,11 @@ figure:not(.main) .marks span {
   transform: translate(-50%, -50%);
 }
 
+/* Lesson 11's piece numbers: bright, muted while another pair is lit. */
+.marks .label.lit {
+  color: var(--text);
+}
+
 /* Lesson 1's point: a larger dot, tinted by its w. */
 .marks span.point::before {
   left: -0.3125rem;
@@ -296,8 +301,10 @@ h1 {
   white-space: nowrap;
 }
 
-/* A prompt picked from pictures: its label above them, all three in one row. */
-.check .prompt:has(.picture) {
+/* A prompt picked from pictures, or from more choices than fit beside its label: its
+   label above them, the choices in one row. */
+.check .prompt:has(.picture),
+.check .prompt:has(.choices > :nth-child(5)) {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
