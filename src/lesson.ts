@@ -29,8 +29,9 @@ export interface Lesson {
   steps: Step[];
   // Starts drawing into the lesson's figures. `show` sets up step i, putting its
   // sliders in `controls`, and calls `done` when a held step is finished; `stop` ends
-  // drawing. Null when the browser has no WebGL2.
-  start(figures: HTMLElement[], controls: HTMLElement): { show(step: number, done: () => void): void; stop(): void } | null;
+  // drawing; `reveal`, when given, shows a check step's answer in the views once the
+  // learner reveals it. Null when the browser has no WebGL2.
+  start(figures: HTMLElement[], controls: HTMLElement): { show(step: number, done: () => void): void; reveal?(step: number): void; stop(): void } | null;
 }
 
 // Builds lesson `n` into `root`; the returned function stops it. `next` is the hash the
@@ -76,7 +77,7 @@ export function mountLesson(root: HTMLElement, n: number, lesson: Lesson, next: 
     forward!.disabled = (!!step.check || !!step.hold) && !finished.has(i);
     const finish = () => (finished.add(i), (forward!.disabled = false));
     $(".sliders").replaceChildren();
-    showCheck($(".check"), step.check, finish);
+    showCheck($(".check"), step.check, () => (finish(), scene.reveal?.(i)));
     scene.show(i, finish);
   };
   back!.addEventListener("click", () => show(at - 1));
@@ -101,8 +102,9 @@ function showCheck(box: HTMLElement, check: Check | undefined, revealed: () => v
     if ("choices" in prompt) {
       const row = Object.assign(document.createElement("div"), { className: "prompt", role: "group", ariaLabel: prompt.label });
       const choices = Object.assign(document.createElement("div"), { className: "choices" });
-      const buttons = prompt.choices.map((choice) => {
+      const buttons = prompt.choices.map((choice, c) => {
         const button = Object.assign(document.createElement("button"), { type: "button", textContent: choice });
+        if (prompt.pictures) button.insertAdjacentHTML("afterbegin", prompt.pictures[c]!), button.classList.add("picture");
         button.ariaPressed = "false";
         button.addEventListener("click", () => {
           values[k] = choice;

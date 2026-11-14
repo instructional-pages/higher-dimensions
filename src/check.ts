@@ -1,8 +1,9 @@
 // Predict-then-reveal checks: the learner types a number for each prompt, or picks one of
 // its choices, and can reveal the answers only once every prompt has one.
 
-// A prompt answered with a typed number, or by picking one of `choices`.
-export type Prompt = { label: string; answer: number } | { label: string; choices: string[]; answer: string };
+// A prompt answered with a typed number, or by picking one of `choices`, each shown as
+// its picture (SVG markup) when `pictures` is given.
+export type Prompt = { label: string; answer: number } | { label: string; choices: string[]; answer: string; pictures?: string[] };
 
 // A typed prediction as a number, or null when it isn't one ("", "abc").
 export function parseAnswer(text: string): number | null {

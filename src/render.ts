@@ -235,14 +235,12 @@ export interface SliceView {
 export function createSliceView(canvas: HTMLCanvasElement): SliceView | null {
   const view = createView(canvas, SHAPE_DISTANCE);
   if (!view) return null;
-  const toCamera = cameraDirection();
   return {
     draw(cut, h) {
       const triangles: number[] = [];
       for (const face of cut.faces) {
         const [p, q, r] = face.map((i) => cut.points[i]!) as [Vec3, Vec3, Vec3];
-        const n = cross(sub(q, p), sub(r, p));
-        const alpha = FILL_MIN + FILL_RANGE * Math.abs(dot(n, toCamera) / Math.hypot(...n));
+        const alpha = faceAlpha(cross(sub(q, p), sub(r, p)));
         for (let k = 1; k + 1 < face.length; k++)
           for (const i of [face[0]!, face[k]!, face[k + 1]!]) triangles.push(...cut.points[i]!, h, alpha);
       }
@@ -253,6 +251,10 @@ export function createSliceView(canvas: HTMLCanvasElement): SliceView | null {
   };
 }
 
+// A filled slice face's brightness, from its normal `n`: brighter the more squarely it
+// faces the camera.
+export const faceAlpha = (n: Vec3): number => FILL_MIN + FILL_RANGE * Math.abs(dot(n, cameraDirection()) / Math.hypot(...n));
+
 const sub = (a: Vec3, b: Vec3): Vec3 => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 
 // The fixed 3D camera's turn, slightly above and to the side so shapes read as 3D.
@@ -260,7 +262,7 @@ const CAMERA_TURN = multiply(planeRotation("yz", 0.35), planeRotation("xz", -0.5
 
 // The direction from the shape toward the camera, in world coordinates: the turn's
 // third row, since the camera looks down its own −z.
-function cameraDirection(): Vec3 {
+export function cameraDirection(): Vec3 {
   return [CAMERA_TURN[8]!, CAMERA_TURN[9]!, CAMERA_TURN[10]!];
 }
 
