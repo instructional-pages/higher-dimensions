@@ -613,3 +613,37 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   slice, so Numbers puts it in front. Each round's distractors are the two mistakes a
   learner is likely to make: the wrong axis or no change, and "a new face means lesson
   9's shape".
+
+## 2026-11-14: Lesson 11's opposite pairs and picking a cube
+
+- **Question:** The outline has opposite pieces of a net "share a color", but color
+  carries w alone and hue may never be the only cue. How are pairs shown? And how does
+  the check "which cube is opposite the top one?" point at a cube?
+- **Choice:** Pair buttons (x, y, z, and w on the tesseract) light one pair at a time:
+  that pair bright, the other pieces dim, in the net and in the folded shape. Every piece
+  carries a small number; the check is a pick among the cube numbers.
+- **Why:** The user's choices. Brightness keeps color for w and needs no exception to the
+  look rules; numbers give the checks and the text something to name.
+
+## 2026-11-14: Lesson 11 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 11 needed that the outline and the choices above left open.
+- **Choice:**
+  - Two views: Net (main) and Folded (small), the outline's Projection: the shape
+    folded up and turned the same way, the lit pair bright in it.
+  - The square's and cube's nets follow the tesseract's hinge pattern one and two rungs
+    down (`net(fold, n)`): the base is the piece on the last axis at +1, the column runs
+    along x for the square and y above it. Flat, the square is a line along y = 1 and the
+    cube a cross in z = 1, tinted as w = 0 like other lower rungs.
+  - Numbers run down the column, then the sides (−1 before +1); the square's line reads
+    left to right. So on every rung, piece 1 is opposite piece 3.
+  - Each rung has its own camera distance so its flat net fills the view; the tesseract's
+    moved from 22 to 25 (the sandbox too), since the flat net ran off the top.
+  - Nine steps: fold the square, fold the cube (each holding Next until 100%), the cube's
+    pairs, the count check on the cube's net (revealing shows the tesseract's net), fold
+    the tesseract (held), how the faces glue (48 cube faces into 24 squares, 7 joined
+    flat), the opposite-cube check (revealing lights pair y), the tesseract's pairs, the
+    sandbox. The 3D turns appear on the gluing step and in the sandbox.
+- **Why:** One hinge rule on every rung lets the cube's "top is opposite the third"
+  carry straight up to the tesseract, which is the second check.
+

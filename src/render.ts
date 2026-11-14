@@ -66,7 +66,8 @@ const STRIDE = 5;
 interface View {
   // Draws triangles then lines, each a flat list of STRIDE floats per vertex. With
   // `solid`, nearer surfaces hide what's behind them; otherwise everything adds up.
-  draw(triangles: number[], lines: number[], solid: boolean): void;
+  // `distance`, when given, moves the camera there from now on.
+  draw(triangles: number[], lines: number[], solid: boolean, distance?: number): void;
   // Where a 3D point lands on the canvas, in CSS pixels from its top left.
   screen(p: Vec3): [number, number];
 }
@@ -107,7 +108,8 @@ function createView(canvas: HTMLCanvasElement, distance: number): View | null {
   gl.clearColor(0, 0, 0, 1);
 
   return {
-    draw(triangles, lines, solid) {
+    draw(triangles, lines, solid, at = distance) {
+      distance = at;
       const dpr = window.devicePixelRatio || 1;
       const width = Math.round(canvas.clientWidth * dpr);
       const height = Math.round(canvas.clientHeight * dpr);
@@ -164,29 +166,56 @@ export function createProjection(canvas: HTMLCanvasElement, shape: Shape): Proje
 }
 
 export interface NetView {
-  // `net` is the unfolded tesseract; `turn` turns it in 3D only (xy, xz, yz), which
-  // keeps every point's w.
-  draw(net: Shape, turn: Mat4): void;
+  // `net` is the unfolded shape; `turn` turns it in 3D only (xy, xz, yz), which keeps
+  // every point's w. `lit`, when not empty, picks the pieces (indices into net.cells)
+  // drawn bright, the rest dim. `frame` says where the flat net's middle sits, which the
+  // view moves to the middle of the canvas and turns about, and how far back to stand so
+  // the whole flat net fits.
+  draw(net: Shape, turn: Mat4, lit?: number[], frame?: NetFrame): void;
+  // Where a 4D point of the net lands on the canvas, in CSS pixels, as last drawn.
+  screen(v: Vec4): [number, number];
 }
 
-// The flat net spans y from −5 to 3 at w = 1, which the shadow scales by 3/2, so its
-// centre is at y = −1.5. Shifting it up turns the net about its own centre.
-const NET_SHIFT = 1.5;
-// The flat net reaches about 6.4 from its centre, twice the shadow's reach.
-const NET_DISTANCE = 22;
+export interface NetFrame {
+  centre: Vec3;
+  distance: number;
+}
+
+// The flat tesseract net spans y from −5 to 3 at w = 1, which the shadow scales by 3/2,
+// so its centre is at y = −1.5. It reaches about 6.4 from there, twice the shadow's
+// reach, and the cubes nearest the camera look bigger still.
+export const TESSERACT_NET: NetFrame = { centre: [0, -1.5, 0], distance: 25 };
+const DIM_EDGE = 0.22;
+const LIT_FACE = 0.09;
+const DIM_FACE = 0.012;
 
 export function createNetView(canvas: HTMLCanvasElement): NetView | null {
-  const view = createView(canvas, NET_DISTANCE);
+  const view = createView(canvas, TESSERACT_NET.distance);
   if (!view) return null;
+  let place = (v: Vec4): Vec4 => v;
   return {
-    draw(net, turn) {
-      const placed = net.vertices.map((v) => {
+    draw(net, turn, lit = [], { centre, distance } = TESSERACT_NET) {
+      place = (v) => {
         const [x, y, z] = shadow(v);
-        const [tx, ty, tz] = apply(turn, [x, y + NET_SHIFT, z, 0]);
-        return [tx, ty, tz, v[3]] as Vec4;
-      });
-      const { triangles, lines } = wireframe(net, placed);
-      view.draw(triangles, lines, false);
+        const [tx, ty, tz] = apply(turn, [x - centre[0], y - centre[1], z - centre[2], 0]);
+        return [tx, ty, tz, v[3]];
+      };
+      const placed = net.vertices.map(place);
+      if (!lit.length) {
+        const { triangles, lines } = wireframe(net, placed);
+        return view.draw(triangles, lines, false, distance);
+      }
+      // Each corner belongs to one piece, so an edge or square is lit with its first corner's.
+      const bright = new Set(lit.flatMap((c) => net.cells[c]!));
+      const triangles = net.faces.flatMap(([a, b, c, d]) =>
+        [a, b, c, a, c, d].flatMap((i) => [...placed[i]!, bright.has(a) ? LIT_FACE : DIM_FACE]),
+      );
+      const lines = net.edges.flatMap(([a, b]) => [a, b].flatMap((i) => [...placed[i]!, bright.has(a) ? EDGE_ALPHA : DIM_EDGE]));
+      view.draw(triangles, lines, false, distance);
+    },
+    screen: (v) => {
+      const [x, y, z] = place(v);
+      return view.screen([x, y, z]);
     },
   };
 }

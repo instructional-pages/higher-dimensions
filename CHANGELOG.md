@@ -4,6 +4,25 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.15.0] - 2026-11-14
+
+### Added
+
+- Lesson 11, "Unfolding": a shape's boundary cut open and laid flat one dimension down,
+  its net, then folded back up with a fold slider. A square's 4 segments in a line, a
+  cube's cross of 6 squares, then (after you predict how many) the tesseract's 8 cubes
+  in a 3D cross, which leave our space mid-fold: they cool in tint and shrink as they
+  turn into w. Every piece is numbered, and Pair buttons light one pair of opposite
+  pieces at a time, in the net and in the folded shape beside it. A second check asks
+  which cube is opposite the top one (the third in the column, as on the cube). Ends in
+  a sandbox with the fold, the pairs, and xy, xz and yz.
+
+### Changed
+
+- The sandbox's net view stands a little further back, so the flat net no longer runs
+  off the top of the view.
+- A check with many choices lists them in one row under its label.
+
 ## [0.14.0] - 2026-11-14
 
 ### Added
