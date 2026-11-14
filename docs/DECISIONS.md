@@ -647,3 +647,38 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Why:** One hinge rule on every rung lets the cube's "top is opposite the third"
   carry straight up to the tesseract, which is the second check.
 
+## 2026-11-14: Lesson 12's ladder and numbers
+
+- **Question:** Should the square and cube screens of lesson 12's ladder be live or a
+  static recap? Where do the matrix and coordinates go?
+- **Choice:** Live: each rung has the turns of its own space (xy on the square; xy, xz,
+  yz on the cube; all six on the tesseract), the cut h and the fold. The matrix and
+  corner coordinates are a fourth view, Numbers, beside Shadow, Slice and Net, which
+  any of the four can swap places with.
+- **Why:** The user's choices. Moving together on every rung is the lesson's whole idea,
+  and a Numbers view keeps the side panel to text, checks and sliders, as in lessons 7
+  to 10.
+
+## 2026-11-14: Lesson 12 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 12 needed that the outline and the choices above left open.
+- **Choice:**
+  - On the lower rungs the shadow is cast straight along the last axis onto a screen,
+    as in lesson 7's square. In perspective (lesson 7's cube), the turned cube's shadow
+    grows past the view. The tesseract's shadow stays the perspective one along w, with
+    the slice marked inside it, as in the sandbox.
+  - The net turns only in the planes that keep the last axis (none on the square, xy on
+    the cube, xy, xz, yz on the tesseract), the sandbox's rule carried down: flat, the net
+    lies in the space one dimension down, and the other planes would turn it out of it.
+  - Numbers shows the turned planes, the n × n matrix with its bottom row bright, that
+    row as a formula, the slice (a rectangle or box only when its corners are square;
+    a slanted one is named by its faces), and corner A (all +1), marked in the shadow.
+  - Eight steps: square, cube, tesseract, what each control moves, the xw round, the 5D
+    counts (five typed numbers, the tesseract's counts in Numbers to start from), the
+    6D cube's edges (the 5D counts in Numbers), the sandbox. Check steps have no
+    sliders.
+  - The xw round starts at zw = π/4 (a box along z) and asks for xw = π/4 as well. Its
+    pictures: a hexagonal prism along z (what xw and yw give), the answer, a hexagonal
+    prism along y, and the same box. Revealing turns the views to the answer.
+- **Why:** The round tests the rule from lesson 10 rather than a remembered picture: the
+  only difference between the two prisms is which axis the bottom row leaves out.

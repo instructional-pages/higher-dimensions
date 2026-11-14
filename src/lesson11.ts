@@ -7,7 +7,7 @@
 import type { Lesson } from "./lesson.ts";
 import { AXES, apply, rotation, type Angles, type Mat4, type Plane, type Vec4 } from "./math4d.ts";
 import { net, order } from "./net.ts";
-import { createLineView, createNetView, TESSERACT_NET, type NetFrame } from "./render.ts";
+import { createLineView, createNetView, NET_FRAMES } from "./render.ts";
 import { angles } from "./turning.ts";
 import { angleName, snapAngle } from "./turn.ts";
 import { addSlider, span } from "./ui.ts";
@@ -27,10 +27,6 @@ const STEPS: { rung: number; fold: number | null; hold?: boolean; pairs?: number
   { rung: 4, fold: 0, pairs: 4, turns: true },
 ];
 
-// Where each rung's flat net has its middle, and how far back the camera stands so it
-// fills the view: the square's line runs along y = 1 from x = −5 to 3 (4 either side), the
-// cube's cross lies in z = 1 from y = −5 to 3 (about 5 to its far corners).
-const FRAMES: Record<number, NetFrame> = { 2: { centre: [-1, 1, 0], distance: 16 }, 3: { centre: [0, -1, 1], distance: 19 }, 4: TESSERACT_NET };
 // What each rung's net is made of, for screen readers.
 const NAMES: Record<number, string> = { 2: "a square's 4 segments", 3: "a cube's 6 squares", 4: "the tesseract's 8 cubes" };
 const FOLDED_EDGE = 0.95;
@@ -148,7 +144,7 @@ export const lesson11: Lesson = {
         const turn: Mat4 = rotation(turned);
         const lit = pair === null ? [] : [2 * pair, 2 * pair + 1];
         const flat = net(fold, rung);
-        netView.draw(flat, turn, lit, FRAMES[rung]);
+        netView.draw(flat, turn, lit, NET_FRAMES[rung]);
 
         // Each piece's number at its middle, bright when lit or nothing is.
         marks.replaceChildren();
