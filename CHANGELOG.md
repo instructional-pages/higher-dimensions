@@ -4,6 +4,21 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.14.0] - 2026-11-14
+
+### Added
+
+- Lesson 10, "Slicing a turning shape": predict what a slice does while the shape turns.
+  xy, xz and yz only turn the tesseract's cube slice. A cube turning in xz, cut by
+  z = 0, and then the tesseract turning in xw, cut by w = 0, move π/8 per press of a
+  Turn button, so you can guess before each one: the slice stretches into a longer box,
+  longest at π/4, and is a cube again at π/2. yw and zw do the same along y and z. Three
+  rounds ask you to pick the next slice out of three pictures, then reveal it; the last
+  turns a second plane into w, and the slice becomes a prism with hexagons at its ends.
+  Numbers shows the matrix with its bottom row bright: a turned corner's w comes from
+  that row alone, which is why only xw, yw and zw change the slice. Ends in a sandbox
+  with all six turns and the cut.
+
 ## [0.13.0] - 2026-10-30
 
 ### Added

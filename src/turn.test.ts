@@ -20,6 +20,11 @@ test("multiples of π/4 are named in lowest terms, other angles as decimals", ()
   assert.equal(angleName(1.2), "1.20");
 });
 
+test("odd multiples of π/8 are named too", () => {
+  assert.deepEqual([1, 3, 5, 15].map((k) => angleName((k * Math.PI) / 8)), ["π/8", "3π/8", "5π/8", "15π/8"]);
+  assert.equal(angleName(0.39), "0.39");
+});
+
 test("a quarter turn takes (1, 0) to (0, 1), and the square's other corners along", () => {
   near(turn(Math.PI / 2, [1, 0, 0, 0]), [0, 1, 0, 0]);
   near(turn(Math.PI / 2, [1, 1, 0, 0]), [-1, 1, 0, 0]);

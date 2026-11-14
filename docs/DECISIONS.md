@@ -581,3 +581,35 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   - Lower rungs are tinted as w = 0; the tesseract's slice is tinted by its w = h.
 - **Why:** Each choice keeps one cut along one axis through the whole ladder, and makes
   "each piece the cut crosses gives one side or face" visible in the numbers.
+
+## 2026-11-14: Lesson 10's pictures and turn size
+
+- **Question:** How are the check's three candidate pictures drawn, and how big is the
+  "small further turn"?
+- **Choice:** Static SVG thumbnails of each slice, drawn from the Slice view's camera and
+  shaded the same way, all at one scale. Turns go π/8 at a time, by a "Turn … by π/8"
+  button in the steps and in the check rounds.
+- **Why:** The user's choices. Thumbnails add no WebGL contexts and almost no bundle;
+  π/8 shows the in-between box (2.16 long) on the way to the longest one at π/4.
+
+## 2026-11-14: Lesson 10 details (decided by Claude, pending review)
+
+- **Question:** Details lesson 10 needed that the outline and the choices above left open.
+- **Choice:**
+  - Three views: Slice (main), Cut (the shape faint with the slice inside it, as in lesson
+    9) and Numbers, which stands in for the outline's Projection and Matrix: it shows the
+    angles, the matrix with its bottom row bright, that row as a formula ("w′ = 0.38x +
+    0.92w", a turned corner's w from where it started), and the slice with its size.
+  - Nine steps: xy, xz, yz on the straight-on cube slice; the cube in xz cut by z = 0 and
+    the tesseract in xw cut by w = 0, each holding Next until the turn reaches π/2; yw and
+    zw; three check rounds (yw π/8 → π/4, zw 3π/8 → π/2, xw at π/4 plus yw π/8); two planes
+    into w with buttons for yw and zw; the sandbox.
+  - Check pictures are labelled A, B, C; each SVG's title describes its shape for screen
+    readers. The third round's wrong pictures are the same box and lesson 9's octahedron.
+    Revealing turns the views to the answer (a new `reveal` hook in the lesson shell).
+  - The sandbox keeps the course's fixed rotation order, so once xw, yw or zw is turned,
+    xy, xz and yz (applied first) also change the slice; its text says so.
+- **Why:** The bottom row of the matrix is the whole reason only the w-planes change the
+  slice, so Numbers puts it in front. Each round's distractors are the two mistakes a
+  learner is likely to make: the wrong axis or no change, and "a new face means lesson
+  9's shape".

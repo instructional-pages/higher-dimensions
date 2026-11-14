@@ -13,14 +13,16 @@ export function snapAngle(theta: number): number {
   return Math.abs(theta - k * EIGHTH) <= SNAP ? k * EIGHTH : theta;
 }
 
-// "0", "π/4", "π/2", "3π/4", "π", … "2π" for exact multiples of π/4, else two decimals.
+// "0", "π/8", "π/4", "3π/8", "π/2", … "2π" for exact multiples of π/8 (lesson 10's
+// turn button), else two decimals. The sliders move in steps of 0.01, so they land
+// exactly only on the multiples of π/4 they snap to.
 export function angleName(theta: number): string {
-  const k = Math.round(theta / EIGHTH);
-  if (Math.abs(theta - k * EIGHTH) > 1e-9) return theta.toFixed(2);
+  const k = Math.round(theta / (EIGHTH / 2));
+  if (Math.abs(theta - (k * EIGHTH) / 2) > 1e-9) return theta.toFixed(2);
   if (k === 0) return "0";
-  // k/4 in lowest terms, as a multiple of π.
-  const d = k % 4 === 0 ? 1 : k % 2 === 0 ? 2 : 4;
-  const n = (k * d) / 4;
+  // k/8 in lowest terms, as a multiple of π.
+  const d = k % 8 === 0 ? 1 : k % 4 === 0 ? 2 : k % 2 === 0 ? 4 : 8;
+  const n = (k * d) / 8;
   return `${n === 1 ? "" : n}π${d === 1 ? "" : `/${d}`}`;
 }
 
