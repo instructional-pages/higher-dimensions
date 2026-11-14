@@ -4,6 +4,14 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.16.1] - 2026-11-14
+
+### Fixed
+
+- The sandbox's corner table (where A, B, C and D start and where the matrix sends them)
+  sits in the side panel again. Lesson 2's corner list was also styling it, which pulled
+  it out of the panel into a narrow column of numbers between the views.
+
 ## [0.16.0] - 2026-11-14
 
 ### Added

@@ -447,8 +447,9 @@ figure:not(.main) .column {
   height: 2px;
 }
 
-/* Lesson 2's corners: the old copy's and the new copy's, side by side. */
-.corners {
+/* Lesson 2's corners: the old copy's and the new copy's, side by side, over its figure.
+   Scoped to figures so it leaves the sandbox's corner table in the side panel alone. */
+figure .corners {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -465,13 +466,13 @@ figure:not(.main) .corners {
   font-size: 0.75rem;
 }
 
-.corners .head,
-.corners .none {
+figure .corners .head,
+figure .corners .none {
   color: var(--muted);
   font-size: 0.75em;
 }
 
-.corners .none {
+figure .corners .none {
   grid-column: 1 / -1;
 }
 
