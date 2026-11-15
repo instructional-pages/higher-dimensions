@@ -254,13 +254,12 @@ h1 {
   text-align: right;
 }
 
+/* The sandbox's Numbers: the matrix and the corners, in em so they shrink with a small
+   view. */
 .grid {
   display: grid;
-  grid-template-columns: 1.25rem repeat(4, 1fr);
-  gap: 0.5rem 0.75rem;
-  padding: 1rem 0;
-  border-top: 1px solid var(--faint);
-  border-bottom: 1px solid var(--faint);
+  grid-template-columns: 1.25em repeat(4, 3.5em);
+  gap: 0.35em 0.75em;
 }
 
 .grid .axis {
@@ -268,8 +267,18 @@ h1 {
   text-align: center;
 }
 
-.corners .start {
+.turns .start {
   color: var(--muted);
+}
+
+/* Small, the sandbox's Numbers previews only the matrix, below its caption: all of it
+   would run over the caption at 720px tall. */
+figure:not(.main) .numbers:has(.matrix) {
+  top: calc(50% + 1rem);
+}
+
+figure:not(.main) .numbers:has(.matrix) > :not(.matrix) {
+  display: none;
 }
 
 /* The lesson shell. */
@@ -486,8 +495,7 @@ figure:not(.main) .column {
   height: 2px;
 }
 
-/* Lesson 2's corners: the old copy's and the new copy's, side by side, over its figure.
-   Scoped to figures so it leaves the sandbox's corner table in the side panel alone. */
+/* Lesson 2's corners: the old copy's and the new copy's, side by side, over its figure. */
 figure .corners {
   position: absolute;
   top: 50%;

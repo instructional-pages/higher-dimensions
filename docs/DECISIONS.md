@@ -724,3 +724,17 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   answered and revealed: before, 5 lessons scrolled at 1440 × 800 (lesson 12 by 216px)
   and 10 at 1280 × 720. After, none do at either size. The views lose 96px of width,
   which their empty margins absorb.
+
+## 2026-11-15: The sandbox's numbers move into a Numbers view (decided by Claude, pending review)
+
+- **Question:** How to stop the sandbox's side panel scrolling, the one place left after
+  the layout fit.
+- **Choice:** The matrix, its order note and the four-corner table move out of the panel
+  into a fourth linked view, Numbers, as lesson 12 does; the panel keeps its text and
+  sliders, with one line pointing to Numbers. The tables size in em, so they shrink with
+  the view. Small, Numbers shows only the matrix, centred below its caption; the corners
+  and notes appear when it is the main view.
+- **Why:** Measured in headless Chromium, the panel scrolled about 370px at 1440 × 800 and
+  450px at 1280 × 720; now 0 at both. All of Numbers at small size is about 290px tall, more
+  than a small view's 240px at 720px tall, so it ran over its caption; the matrix alone
+  fits.

@@ -1,8 +1,9 @@
 // Tesseract sandbox: six plane sliders turn the tesseract, a seventh moves the cut
-// w = h, an eighth folds the net. One of the shadow, the slice and the net is the main
-// view, the other two sit small beside it; clicking a small one swaps it in. The 4×4
-// matrix shows the combined rotation, and four corners show where it sends them.
-// Redraws only when a slider moves or the window resizes.
+// w = h, an eighth folds the net. One of the shadow, the slice, the net and Numbers is
+// the main view, the others sit small beside it; clicking a small one swaps it in.
+// Numbers shows the combined rotation's 4×4 matrix and where it sends four corners, so
+// the side panel holds only text and sliders. Redraws only when a slider moves or the
+// window resizes.
 
 import { AXES, PLANES, apply, rotation, tesseract, type Angles, type Vec4 } from "./math4d.ts";
 import { net } from "./net.ts";
@@ -30,27 +31,31 @@ const ASIDE = `
     tesseract. It turns only in xy, xz and yz.
   </p>
   <div class="sliders fold"></div>
-  <div class="grid matrix"></div>
   <p class="note">
-    M = R<sub>zw</sub> R<sub>yw</sub> R<sub>xw</sub> R<sub>yz</sub> R<sub>xz</sub> R<sub>xy</sub>:
-    xy turns first, zw last.
-  </p>
-  <div class="grid corners"></div>
-  <p class="note">
-    Four corners, marked in the shadow: where each starts, and where M sends it. A and B
-    differ in x, A and C in w, and D is opposite A.
+    Numbers has the matrix M of all six turns, and where it sends the four corners marked
+    in the shadow.
   </p>`;
+
+// The Numbers view: M with its axes, then each corner's start in muted ±1 and where M
+// sends it.
+const NUMBERS = `
+  <div class="grid matrix"></div>
+  <span class="note">M = R<sub>zw</sub> R<sub>yw</sub> R<sub>xw</sub> R<sub>yz</sub> R<sub>xz</sub> R<sub>xy</sub>: xy turns first, zw last</span>
+  <div class="grid turns"></div>
+  <span class="note">A and B differ in x, A and C in w, and D is opposite A</span>`;
 
 // Builds the sandbox into `root`; the returned function stops it.
 export function mountSandbox(root: HTMLElement): () => void {
   const views = Object.assign(document.createElement("div"), { className: "views" });
-  const [projectionFigure, sliceFigure, netFigure] = [
+  const [projectionFigure, sliceFigure, netFigure, numbersFigure] = [
     { caption: "Shadow", label: "The tesseract's shadow in 3D, with the slice marked inside it" },
     { caption: "Slice at w = h", label: "The 3D slice of the tesseract where w = h" },
     { caption: "Net", label: "The tesseract's net: its 8 cubes unfolded into 3D, folding back into the tesseract" },
-  ].map(figure) as [HTMLElement, HTMLElement, HTMLElement];
+    { caption: "Numbers" },
+  ].map(figure) as [HTMLElement, HTMLElement, HTMLElement, HTMLElement];
   const marks = projectionFigure.appendChild(Object.assign(document.createElement("div"), { className: "marks" }));
-  views.append(projectionFigure, sliceFigure, netFigure);
+  const numbers = numbersFigure.appendChild(Object.assign(document.createElement("div"), { className: "numbers", innerHTML: NUMBERS }));
+  views.append(projectionFigure, sliceFigure, netFigure, numbersFigure);
   const aside = Object.assign(document.createElement("aside"), { innerHTML: ASIDE });
   root.append(views, aside);
   linkViews(views);
@@ -61,8 +66,8 @@ export function mountSandbox(root: HTMLElement): () => void {
   const sliders = $(".turn");
   const cutSlider = $(".cut");
   const foldSlider = $(".fold");
-  const matrix = $(".matrix");
-  const cornerTable = $(".corners");
+  const matrix = numbers.querySelector<HTMLElement>(".matrix")!;
+  const cornerTable = numbers.querySelector<HTMLElement>(".turns")!;
 
   const shape = tesseract();
   const projection = createProjection(projectionCanvas, shape);

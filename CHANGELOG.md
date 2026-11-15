@@ -4,6 +4,15 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.16.4] - 2026-11-15
+
+### Fixed
+
+- The sandbox's side panel no longer scrolls at 1440 × 800 or 1280 × 720. Its matrix and
+  corner table now sit in a fourth view, Numbers, beside the shadow, the slice and the
+  net, as in lesson 12. Click it to make it the main view. Small, it shows just the
+  matrix.
+
 ## [0.16.3] - 2026-11-15
 
 ### Fixed
