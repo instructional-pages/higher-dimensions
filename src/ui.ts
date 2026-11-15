@@ -68,7 +68,9 @@ export function figure({ caption, label }: ViewSpec): HTMLElement {
 export function linkViews(views: HTMLElement) {
   const figures = [...views.querySelectorAll<HTMLElement>(":scope > figure")];
   views.style.gridTemplateRows = `repeat(${Math.max(1, figures.length - 1)}, 1fr)`;
+  let current = figures[0]!;
   const makeMain = (main: HTMLElement) => {
+    current = main;
     for (const figure of figures) {
       const small = figure !== main;
       figure.classList.toggle("main", !small);
@@ -88,7 +90,11 @@ export function linkViews(views: HTMLElement) {
     figure.addEventListener("keydown", (e) => {
       if (figure.classList.contains("main") || (e.key !== "Enter" && e.key !== " ")) return;
       e.preventDefault();
+      // The swapped-in view stops being a button, so focus moves to the one it replaced,
+      // which now sits in its place.
+      const old = current;
       makeMain(figure);
+      old.focus();
     });
   }
   makeMain(figures[0]!);

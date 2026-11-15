@@ -4,6 +4,21 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.16.2] - 2026-11-15
+
+### Fixed
+
+- Keyboard focus no longer falls back to the start of the page. Revealing a check moves
+  focus to its explanation, so the next Tab reaches Next. When Next or Back goes grey on
+  the step it leads to, focus moves to that step's first field, choice or slider. A new
+  lesson or the contents starts focus at its heading.
+- Swapping views from the keyboard keeps focus: after Enter or Space, focus moves to the
+  view that was swapped out, so pressing again swaps back.
+- A focused small view now shows its ring. The canvas was drawing over it.
+- Number fields and slider tracks have a visible edge (3:1 against black). Before, they
+  were almost invisible.
+- Screen readers read each step's text when Next or Back changes it.
+
 ## [0.16.1] - 2026-11-14
 
 ### Fixed
