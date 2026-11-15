@@ -17,4 +17,11 @@ slider, live 4×4 matrix and corner coordinates). See [docs/BRIEF.md](docs/BRIEF
 Develop with `npm install` then `npm run dev`. Checks: `./.local-ci` (typecheck, unit
 tests, build, bundle-size budget); `npm test` runs the unit tests alone.
 
+Deploy (GitHub Pages, from this machine, no Actions): on an up-to-date, clean `main`, run
+`npm run deploy`. It builds, checks the bundle budget, and force-pushes `dist/` as a single
+commit to the `gh-pages` branch; `npm run deploy -- --dry-run` does everything but the push.
+Pages serves that branch at <https://instructional-pages.github.io/higher-dimensions/>, once
+it is turned on (one time):
+`gh api -X POST repos/instructional-pages/higher-dimensions/pages -f "source[branch]=gh-pages" -f "source[path]=/"`.
+
 License: [MIT](LICENSE).

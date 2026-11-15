@@ -738,3 +738,19 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
   450px at 1280 × 720; now 0 at both. All of Numbers at small size is about 290px tall, more
   than a small view's 240px at 720px tall, so it ran over its caption; the matrix alone
   fits.
+
+## 2026-11-15: How the GitHub Pages deploy works (decided by Claude, pending review)
+
+- **Question:** How does the built site reach GitHub Pages without Actions?
+- **Choice:** `npm run deploy` (`scripts/deploy.mjs`) refuses unless the tree is clean and
+  HEAD is `origin/main`, then builds, runs the bundle-size check, and force-pushes `dist/`
+  plus an empty `.nojekyll` as one fresh commit (`deploy <version> from <sha>`) to
+  `gh-pages`. Turning Pages on is a one-time command in the README, not part of the script.
+- **Why:** Only merged code, which passed `local-ci`, can go live. One commit per deploy
+  keeps old bundles out of the repo's history; the source commit is named in the message,
+  and `main` plus the tags already hold the history. `.nojekyll` stops Pages running Jekyll
+  over the files. Keeping Pages setup out of the script means a deploy never changes
+  repo settings. Tested against a local bare repo: refuses a dirty tree and a HEAD ahead of
+  main, a dry run pushes nothing, a repeat deploy leaves one commit, and the pushed branch
+  served under `/higher-dimensions/` loads the sandbox in headless Chromium with no failed
+  requests.
