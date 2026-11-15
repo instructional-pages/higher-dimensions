@@ -745,12 +745,12 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Choice:** `npm run deploy` (`scripts/deploy.mjs`) refuses unless the tree is clean and
   HEAD is `origin/main`, then builds, runs the bundle-size check, and force-pushes `dist/`
   plus an empty `.nojekyll` as one fresh commit (`deploy <version> from <sha>`) to
-  `gh-pages`. Turning Pages on is a one-time command in the README, not part of the script.
+  `gh-pages`. The script never changes repo settings; GitHub turned Pages on for `gh-pages`
+  by itself when the branch was first pushed (2026-11-15, first publish, approved by the user).
 - **Why:** Only merged code, which passed `local-ci`, can go live. One commit per deploy
   keeps old bundles out of the repo's history; the source commit is named in the message,
   and `main` plus the tags already hold the history. `.nojekyll` stops Pages running Jekyll
-  over the files. Keeping Pages setup out of the script means a deploy never changes
-  repo settings. Tested against a local bare repo: refuses a dirty tree and a HEAD ahead of
+  over the files. Tested against a local bare repo: refuses a dirty tree and a HEAD ahead of
   main, a dry run pushes nothing, a repeat deploy leaves one commit, and the pushed branch
   served under `/higher-dimensions/` loads the sandbox in headless Chromium with no failed
   requests.
