@@ -72,5 +72,10 @@ function render() {
   window.scrollTo(0, 0);
 }
 
-window.addEventListener("hashchange", render);
+// A new page starts focus at its heading, not wherever the old page's focus fell.
+window.addEventListener("hashchange", () => {
+  render();
+  const heading = root.querySelector("h1");
+  if (heading) (heading.tabIndex = -1), heading.focus({ preventScroll: true });
+});
 render();

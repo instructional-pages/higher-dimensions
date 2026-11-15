@@ -682,3 +682,24 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
     prism along y, and the same box. Revealing turns the views to the answer.
 - **Why:** The round tests the rule from lesson 10 rather than a remembered picture: the
   only difference between the two prisms is which axis the bottom row leaves out.
+
+## 2026-11-15: Accessibility pass (decided by Claude, pending review)
+
+- **Question:** What the accessibility pass over the 12 lessons and the sandbox should
+  change, against WCAG AA contrast, `prefers-reduced-motion` and a keyboard-only walk.
+- **Choice:**
+  - Text colors stay as they are: on black, text is 13.5:1, muted text 4.53:1 and the
+    w tints 7.5–9:1, all above AA's 4.5:1.
+  - Number fields and slider tracks get a new `--line` grey (#545d66, 3.13:1), the
+    quietest that meets the 3:1 rule for control edges. Buttons keep the faint edge:
+    their words identify them, and lessons 3 and 4 tell a counted group apart by its
+    brighter edge, which a stronger default edge would hide.
+  - No `prefers-reduced-motion` rule is needed: nothing moves on its own. Every change
+    in the views follows a slider, a button or Next, which the setting doesn't cover.
+  - Focus never drops to the page. Reveal hands it to the explanation, a disabled Next
+    or Back hands it to the step's first control (or the other button), a swapped-in view
+    hands it to the view it replaced, and a new page focuses its heading.
+  - Step text is a polite live region, so a screen reader reads the new step.
+- **Why:** In the live walk, focus fell to the page after every Reveal (30 checks), every
+  step that opened with Next disabled, every lesson change and every view swap. The
+  learner then had to Tab from the top past the views again. The field edges were 1.31:1.

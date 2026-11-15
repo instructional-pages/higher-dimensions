@@ -3,6 +3,8 @@
   --text: #c8d0d8;
   --muted: #6b7680;
   --faint: #1c2228;
+  /* Control edges: the quietest grey with 3:1 against black (WCAG 1.4.11). */
+  --line: #545d66;
 }
 
 body {
@@ -42,9 +44,17 @@ a {
   cursor: pointer;
 }
 
+/* The ring is drawn over the canvas, which would cover an inset outline. */
 .views figure:not(.main):focus-visible {
-  outline: 1px solid var(--muted);
-  outline-offset: -1px;
+  outline: none;
+}
+
+.views figure:not(.main):focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--muted);
+  pointer-events: none;
 }
 
 figure {
@@ -186,12 +196,12 @@ h1 {
 
 .sliders input::-webkit-slider-runnable-track {
   height: 2px;
-  background: var(--faint);
+  background: var(--line);
 }
 
 .sliders input::-moz-range-track {
   height: 2px;
-  background: var(--faint);
+  background: var(--line);
 }
 
 .sliders input::-webkit-slider-thumb {
@@ -353,7 +363,10 @@ button {
   border-radius: 2px;
 }
 
+/* A field's edge is all that shows it's a field, so it gets the 3:1 grey; a button is
+   known by its word. */
 input[type="text"] {
+  border-color: var(--line);
   width: 3.5rem;
   box-sizing: border-box;
   padding: 0.25rem 0.5rem;
@@ -376,6 +389,11 @@ button:hover:not(:disabled) {
 button:disabled {
   color: var(--muted);
   cursor: default;
+}
+
+/* Focused by the page itself (a new page's heading, a revealed answer), not a control. */
+[tabindex="-1"]:focus {
+  outline: none;
 }
 
 input:focus-visible,

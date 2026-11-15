@@ -45,7 +45,7 @@ export function mountLesson(root: HTMLElement, n: number, lesson: Lesson, next: 
     <a class="up" href="#">Contents</a>
     <h1></h1>
     <p class="note counter"></p>
-    <div class="text"></div>
+    <div class="text" aria-live="polite"></div>
     <div class="check"></div>
     <div class="sliders"></div>
     <nav><button type="button">Back</button><button type="button">Next</button></nav>`;
@@ -80,9 +80,16 @@ export function mountLesson(root: HTMLElement, n: number, lesson: Lesson, next: 
     showCheck($(".check"), step.check, () => (finish(), scene.reveal?.(i)));
     scene.show(i, finish);
   };
-  back!.addEventListener("click", () => show(at - 1));
+  // A button disabled under the keyboard drops focus to the page, so hand it to the
+  // step's first control, or else the other button.
+  const keepFocus = (button: HTMLButtonElement, other: HTMLButtonElement) => {
+    if (!button.disabled) return;
+    const control = aside.querySelector<HTMLElement>(".check :is(input, button):not(:disabled), .sliders :is(input, button):not(:disabled)");
+    (control ?? other).focus();
+  };
+  back!.addEventListener("click", () => (show(at - 1), keepFocus(back!, forward!)));
   forward!.addEventListener("click", () => {
-    if (at < lesson.steps.length - 1) show(at + 1);
+    if (at < lesson.steps.length - 1) show(at + 1), keepFocus(forward!, back!);
     else location.hash = next;
   });
   show(0);
@@ -123,7 +130,9 @@ function showCheck(box: HTMLElement, check: Check | undefined, revealed: () => v
     row.append(prompt.label, input, document.createElement("output"));
     return { row, lock: (): void => void (input.readOnly = true) };
   });
-  const after = Object.assign(document.createElement("p"), { innerHTML: check.after, hidden: true });
+  // Focused once revealed, in place of the removed Reveal button, so it's read out and
+  // the next Tab reaches Next.
+  const after = Object.assign(document.createElement("p"), { innerHTML: check.after, hidden: true, tabIndex: -1 });
   box.append(...rows.map(({ row }) => row), reveal, after);
   reveal.addEventListener("click", () => {
     check.prompts.forEach((prompt, k) => {
@@ -136,5 +145,6 @@ function showCheck(box: HTMLElement, check: Check | undefined, revealed: () => v
     reveal.remove();
     after.hidden = false;
     revealed();
+    after.focus();
   });
 }
