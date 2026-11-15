@@ -4,6 +4,19 @@ All notable changes are listed here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [0.16.3] - 2026-11-15
+
+### Fixed
+
+- The side panel no longer scrolls in any lesson at 1440 × 800 or 1280 × 720. It is
+  wider (24rem), so text wraps less, and its spacing is a little tighter. Text sizes are
+  unchanged.
+- Lesson 12's "what each control moves" step is now two steps: the turns that keep w,
+  then the turns into w with h and fold. The lesson has 9 steps.
+- A small view draws below its caption, so the flat tesseract net no longer reaches over
+  "Net".
+- A slider's value, such as −1.25, no longer pokes past the panel's right edge.
+
 ## [0.16.2] - 2026-11-15
 
 ### Fixed

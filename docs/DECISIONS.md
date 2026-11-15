@@ -703,3 +703,24 @@ Entries dated 2026-10-27 were settled while writing the brief (`docs/BRIEF.md`).
 - **Why:** In the live walk, focus fell to the page after every Reveal (30 checks), every
   step that opened with Next disabled, every lesson change and every view swap. The
   learner then had to Tab from the top past the views again. The field edges were 1.31:1.
+
+## 2026-11-15: Layout fit at 1440 × 800 and 1280 × 720 (decided by Claude, pending review)
+
+- **Question:** How to stop the side panel scrolling on long steps, and the flat net in a
+  small view reaching over its caption, without making text smaller.
+- **Choice:**
+  - The panel is 24rem wide (was 18rem), with tighter vertical spacing: 2rem top and
+    1.5rem bottom padding, 1.25rem under Contents, 1.5rem around the sliders and above
+    the nav, 0.5rem between sliders. Text sizes are unchanged.
+  - Lesson 12's "what each control moves" step splits in two: xy, xz and yz, then xw,
+    yw and zw with h and fold. At 1280 × 720 its eight sliders and three paragraphs
+    didn't fit in one step. Lesson 12's 5D counts step joins its two paragraphs into one.
+  - A small view's canvas and marks start 2rem down, below the caption, rather than
+    shrinking the net's frame, which would also shrink it in the main view.
+  - The sandbox panel still scrolls (about 370px at 1440 × 800): its matrix and corner
+    tables sit below the controls. Out of scope here; moving them into a Numbers view,
+    as lesson 12 does, would remove the scroll.
+- **Why:** Measured in headless Chromium on every step of every lesson, with each check
+  answered and revealed: before, 5 lessons scrolled at 1440 × 800 (lesson 12 by 216px)
+  and 10 at 1280 × 720. After, none do at either size. The views lose 96px of width,
+  which their empty margins absorb.

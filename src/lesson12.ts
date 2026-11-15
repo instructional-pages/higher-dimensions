@@ -28,6 +28,7 @@ const STEPS: { rung: number; panel: Panel; start?: Partial<Angles>; ask?: string
   { rung: 3, panel: "turn" },
   { rung: 4, panel: "turn" },
   { rung: 4, panel: "turn" },
+  { rung: 4, panel: "turn" },
   { rung: 4, panel: "round", start: { zw: 2 * STEP }, ask: "xw = π/4 as well", reveal: { zw: 2 * STEP, xw: 2 * STEP } },
   { rung: 4, panel: "counts", known: 4 },
   { rung: 4, panel: "counts", known: 5 },
@@ -88,12 +89,15 @@ export const lesson12: Lesson = {
         Numbers too. Every slider updates all of them at once.</p>`,
     },
     {
-      text: `<p>What each control moves:</p><p>xy, xz and yz keep w. On their own they turn
-        all three views, and the slice keeps its shape; once a turn into w is set, they
-        change the slice too, since they turn first.</p><p>xw, yw and zw turn into w. The shadow's
-        inner and outer cubes trade places, the slice changes as the matrix's bottom row
-        says, and the net stays put, since it would leave our space.</p><p>h moves only the
-        cut: the slice, and its mark in the shadow. fold moves only the net.</p>`,
+      text: `<p>What each control moves. xy, xz and yz keep w. On their own they turn all
+        three views, and the slice keeps its shape; once a turn into w is set, they change
+        the slice too, since they turn first.</p>`,
+    },
+    {
+      text: `<p>xw, yw and zw turn into w. The shadow's inner and outer cubes trade places,
+        the slice changes as the matrix's bottom row says, and the net stays put, since it
+        would leave our space.</p><p>h moves only the cut: the slice, and its mark in the
+        shadow. fold moves only the net.</p>`,
     },
     {
       text: `<p>A final round to finish. zw is at π/4: the slice is a box, 2.83 long along
@@ -119,8 +123,8 @@ export const lesson12: Lesson = {
     },
     {
       text: `<p>No picture now. The 5D cube is the tesseract extruded along a fifth
-        direction. How many of each piece does it have?</p><p>Numbers has the tesseract's
-        counts to start from.</p>`,
+        direction. How many of each piece does it have? Numbers has the tesseract's counts
+        to start from.</p>`,
       check: {
         prompts: PIECES.map((piece, k) => ({ label: piece[0]!.toUpperCase() + piece.slice(1), answer: closedForm(5, k) })),
         after: `32, 80, 80, 40, 10. Each is twice the tesseract's count (the old copy and the
